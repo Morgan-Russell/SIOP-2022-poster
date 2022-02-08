@@ -18,8 +18,8 @@ column_numbers: 3
 primary_colour: "#640d14"
 secondary_colour: "#ad2831"
 accent_colour: "#38040e"
-csl: "apa7.csl"
-logoright_name: https&#58;//raw.githubusercontent.com/brentthorne/posterdown/master/images/betterhexlogo.png
+#csl: "apa7.csl" # NEED TO FIX THIS
+logoright_name: https&#58;//raw.githubusercontent.com/Morgan-Russell/SIOP-2022-poster/main/hawk-logo-white.svg
 logoleft_name: https&#58;//raw.githubusercontent.com/brentthorne/posterdown/master/images/betterhexlogo.png
 output: 
   posterdown::posterdown_html:

@@ -18,7 +18,7 @@ column_numbers: 3
 primary_colour: "#640d14"
 secondary_colour: "#ad2831"
 accent_colour: "#38040e"
-csl: "apa7.csl"
+#csl: "apa6.csl"
 logoright_name: https&#58;//raw.githubusercontent.com/brentthorne/posterdown/master/images/betterhexlogo.png
 logoleft_name: https&#58;//raw.githubusercontent.com/brentthorne/posterdown/master/images/betterhexlogo.png
 output: 
