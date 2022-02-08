@@ -363,7 +363,7 @@ font-size: 20pt;
 <div class="title_container">
 <!-- Left Logo  -->
 <div class="logo_left">
-<img src=https://raw.githubusercontent.com/Morgan-Russell/SIOP-2022-poster/main/MSU_name.png style="width: 80%">
+<img src=https://raw.githubusercontent.com/Morgan-Russell/SIOP-2022-poster/main/MSU_logo_white.webp style="width: 80%">
 </div>
 <!-- Poster Title -->
 <div class= "poster_title">
@@ -379,24 +379,234 @@ font-size: 20pt;
 
 <div class='poster_body_wrap'>
 <div class='poster_body'>
-<div id="r-markdown" class="section level2">
-<h2>R Markdown</h2>
-<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
-<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cars)</span></code></pre></div>
-<pre><code>##      speed           dist       
-##  Min.   : 4.0   Min.   :  2.00  
-##  1st Qu.:12.0   1st Qu.: 26.00  
-##  Median :15.0   Median : 36.00  
-##  Mean   :15.4   Mean   : 42.98  
-##  3rd Qu.:19.0   3rd Qu.: 56.00  
-##  Max.   :25.0   Max.   :120.00</code></pre>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>Welcome to <code>posterdown</code> ! This is my attempt to provide a semi-smooth workflow for those who wish to take their R Markdown skills to the conference world. Most features from R Markdown are available in this package such as Markdown section notation, figure captioning, and even citations like this one <span class="citation">(Allaire et al. 2021)</span>. The rest of this example poster will show how you can insert typical conference poster features into your own document.</p>
+<div id="objectives" class="section level2">
+<h2>Objectives</h2>
+<ol style="list-style-type: decimal">
+<li>Easy to use reproducible poster design.</li>
+<li>Integration with R Markdown.</li>
+<li>Easy transition from <code>posterdown</code> to <code>pagedown</code> report or manuscript documents <span class="citation">(Xie et al. 2021)</span>.</li>
+</ol>
 </div>
-<div id="including-plots" class="section level2">
-<h2>Including Plots</h2>
-<p>You can also embed plots, for example:</p>
-<p><img src="SIOP-2022-poster_files/figure-html/pressure-1.png" width="672" /></p>
-<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
+</div>
+<div id="methods" class="section level1">
+<h1>Methods</h1>
+<p>This package uses the same workflow approach as the R Markdown you know and love. Basically it goes from RMarkdown &gt; Knitr &gt; Markdown &gt; Pandoc &gt; HTML/CSS &gt; PDF. You can even use the bibliography the same way <span class="citation">(Thorne 2022)</span>.</p>
+</div>
+<div id="results" class="section level1">
+<h1>Results</h1>
+<p>Usually you want to have a nice table displaying some important results that you have calculated. In <code>posterdown</code> this is as easy as using the <code>kable</code> table formatting you are probably use to as per typical R Markdown formatting.</p>
+<p>You can reference tables like so: Table <a href="#tab:mytable">1</a>. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat augue at velit tincidunt semper. Donec elementum porta posuere. Nullam interdum, odio at tincidunt feugiat, turpis nisi blandit eros, eu posuere risus felis non quam. Nam eget lorem odio. Duis et aliquet orci. Phasellus nec viverra est.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(iris[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">caption =</span> <span class="st">&#39;Table caption.&#39;</span>,<span class="at">align =</span> <span class="st">&#39;c&#39;</span>,<span class="st">&quot;html&quot;</span>)</span></code></pre></div>
+<table>
+<caption>
+<span id="tab:mytable">Table 1: </span>Table caption.
+</caption>
+<thead>
+<tr>
+<th style="text-align:center;">
+Sepal.Length
+</th>
+<th style="text-align:center;">
+Sepal.Width
+</th>
+<th style="text-align:center;">
+Petal.Length
+</th>
+<th style="text-align:center;">
+Petal.Width
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+5.1
+</td>
+<td style="text-align:center;">
+3.5
+</td>
+<td style="text-align:center;">
+1.4
+</td>
+<td style="text-align:center;">
+0.2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4.9
+</td>
+<td style="text-align:center;">
+3.0
+</td>
+<td style="text-align:center;">
+1.4
+</td>
+<td style="text-align:center;">
+0.2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4.7
+</td>
+<td style="text-align:center;">
+3.2
+</td>
+<td style="text-align:center;">
+1.3
+</td>
+<td style="text-align:center;">
+0.2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4.6
+</td>
+<td style="text-align:center;">
+3.1
+</td>
+<td style="text-align:center;">
+1.5
+</td>
+<td style="text-align:center;">
+0.2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5.0
+</td>
+<td style="text-align:center;">
+3.6
+</td>
+<td style="text-align:center;">
+1.4
+</td>
+<td style="text-align:center;">
+0.2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5.4
+</td>
+<td style="text-align:center;">
+3.9
+</td>
+<td style="text-align:center;">
+1.7
+</td>
+<td style="text-align:center;">
+0.4
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4.6
+</td>
+<td style="text-align:center;">
+3.4
+</td>
+<td style="text-align:center;">
+1.4
+</td>
+<td style="text-align:center;">
+0.3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5.0
+</td>
+<td style="text-align:center;">
+3.4
+</td>
+<td style="text-align:center;">
+1.5
+</td>
+<td style="text-align:center;">
+0.2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4.4
+</td>
+<td style="text-align:center;">
+2.9
+</td>
+<td style="text-align:center;">
+1.4
+</td>
+<td style="text-align:center;">
+0.2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4.9
+</td>
+<td style="text-align:center;">
+3.1
+</td>
+<td style="text-align:center;">
+1.5
+</td>
+<td style="text-align:center;">
+0.1
+</td>
+</tr>
+</tbody>
+</table>
+<p>Or with figures: Figure <a href="#fig:standard-plot">1</a>, or Figure <a href="#fig:morefigs">2</a>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:standard-plot"></span>
+<img src="SIOP-2022-poster_files/figure-html/standard-plot-1.png" alt="Great figure!" width="80%" />
+<p class="caption">
+Figure 1: Great figure!
+</p>
+</div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> iris</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> data<span class="sc">$</span>Sepal.Length, </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">y =</span> data<span class="sc">$</span>Sepal.Width, </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> data<span class="sc">$</span>Species,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">19</span>, </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Sepal Length (cm)&quot;</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Sepal Width (cm)&quot;</span>)</span></code></pre></div>
+<div class="figure"><span id="fig:morefigs"></span>
+<img src="SIOP-2022-poster_files/figure-html/morefigs-1.png" alt="Amazing, right?!" width="80%" />
+<p class="caption">
+Figure 2: Amazing, right?!
+</p>
+</div>
+</div>
+<div id="next-steps" class="section level1">
+<h1>Next Steps</h1>
+<p>Aliquam sed faucibus risus, quis efficitur erat. Vestibulum semper mauris quis tempus eleifend. Aliquam sagittis dictum ipsum, quis viverra ligula eleifend ut. Curabitur sagittis vitae arcu eget faucibus. In non elementum felis. Duis et aliquam nunc. Nunc pulvinar sapien nunc, vel pretium nisi efficitur in. Fusce fringilla maximus leo et maximus. Fusce at ligula laoreet, iaculis mi at, auctor odio. Praesent sed elementum justo. Aenean consectetur risus rhoncus tincidunt efficitur. Praesent dictum mauris at diam maximus maximus <span class="citation">(Thorne 2022)</span>.</p>
+</div>
+<div id="conclusion" class="section level1">
+<h1>Conclusion</h1>
+<p>Try <code>posterdown</code> out! Hopefully you like it!</p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-R-rmarkdown" class="csl-entry">
+Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, and Richard Iannone. 2021. <em>Rmarkdown: Dynamic Documents for r</em>.
+</div>
+<div id="ref-R-posterdown" class="csl-entry">
+Thorne, Brent. 2022. <em>Posterdown: Generate PDF Conference Posters Using r Markdown</em>. <a href="https://github.com/brentthorne/posterdown">https://github.com/brentthorne/posterdown</a>.
+</div>
+<div id="ref-R-pagedown" class="csl-entry">
+Xie, Yihui, Romain Lesur, Brent Thorne, and Xianying Tan. 2021. <em>Pagedown: Paginate the HTML Output of r Markdown with CSS for Print</em>. <a href="https://github.com/rstudio/pagedown">https://github.com/rstudio/pagedown</a>.
+</div>
+</div>
 </div>
 </div>
 </div>
