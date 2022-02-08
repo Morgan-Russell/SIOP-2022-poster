@@ -1,0 +1,52 @@
+---
+title: Development of an Intentional Bifactor Engagement Measure
+author:
+  - name: Morgan Russell
+    affil: 1
+  - name: Renata Garcia Prieto Palacios Roji, MA
+    affil: 1
+  - name: Casey Osorio-Duffoo, MA
+    affil: 2
+  - name: John Kulas, PhD
+    affil: 1
+affiliation:
+  - num: 1
+    address: Montclair State University
+  - num: 2
+    address: Harver
+column_numbers: 3
+primary_colour: "#640d14"
+secondary_colour: "#ad2831"
+accent_colour: "#38040e"
+csl: "apa7.csl"
+logoright_name: https&#58;//raw.githubusercontent.com/brentthorne/posterdown/master/images/betterhexlogo.png
+logoleft_name: https&#58;//raw.githubusercontent.com/brentthorne/posterdown/master/images/betterhexlogo.png
+output: 
+  posterdown::posterdown_html:
+    self_contained: false
+bibliography: packages.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

@@ -1,0 +1,16 @@
+---
+title: "Poster test"
+author: "Morgan Russell"
+date: "2/1/2022"
+output: 
+  posterdown::posterdown_html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(posterdown)
+```
+
