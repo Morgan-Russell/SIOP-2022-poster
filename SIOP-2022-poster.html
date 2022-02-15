@@ -21,13 +21,14 @@ Google fonts api stuff
 
 <title>Development of an Intentional Bifactor Engagement Measure</title>
 
-<script src="SIOP-2022-poster_files/header-attrs-2.9.1/header-attrs.js"></script>
+<script src="SIOP-2022-poster_files/header-attrs-2.11/header-attrs.js"></script>
 
 
 
 <style type="text/css">pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -109,12 +110,11 @@ height: 38in;
 padding: 0cm;
 }
 .title_container {
-width: 100%;
-height: 15%;
+width: 45in;
+height: calc(38in * 0.15);
 overflow: hidden;
 background-color: #640d14;
-border: 0 solid #640d14
-;
+border: 0 solid #ad2831;
 }
 .logo_left {
 float: left;
@@ -151,7 +151,6 @@ font-family: Palatino;
 /* unvisited link */
 a:link {
 color: #38040e;
-text-decoration: none;
 }
 .mybreak {
   break-before: column;
@@ -159,19 +158,16 @@ text-decoration: none;
 /* visited link */
 a:visited {
 color: #38040e;
-text-decoration: none;
 }
 
 /* mouse over link */
 a:hover {
 color: #38040e;
-text-decoration: none;
 }
 
 /* selected link */
 a:active {
 color: #38040e;
-text-decoration: none;
 }
 .poster_body {
 -webkit-column-count: 3; /* Chrome, Safari, Opera */
@@ -203,9 +199,9 @@ border: 0;
 font-weight: normal;
 }
 .poster_body_wrap{
-width: 45in;
-height: calc(100% - 17%);
-padding-top: calc(38in * 0.01);
+width: calc(45in + 0 + 0);
+height: calc(38in * 0.83);
+padding-top: calc(38in * 0.005);
 padding-bottom: calc(38in * 0.01);
 background-color: #ffffff;
 }
@@ -228,7 +224,7 @@ border: 0;
 font-weight: normal;
 }
 img {
-margin-top: 0;
+margin-top: 2cm;
 margin-bottom: 0;
 }
 .section {
@@ -266,41 +262,25 @@ margin-bottom: 2cm;
 position: sticky;
 width: 100%;
 }
-pre.sourceCode.r, pre.sourceCode.python {
-background-color: #ffffff20;
-border: solid #ad2831 1mm;
-border-radius: 0.5em;
+pre.sourceCode.r {
+background-color: #dddddd40;
+border-radius: 4mm;
 padding: 4mm;
-margin: auto;
-margin-top: 1em;
-margin-bottom: 1em;
+width: 75%;
 /* align-items: center; */
+margin: auto;
+padding-left: 2cm;
 }
-div.sourceCode {
-background-color: transparent;
-width: 85%;
-margin-left: auto;
-margin-right: auto;
-}
-code.sourceCode.r, code.sourceCode.python {
+code.sourceCode.r{
 background-color: transparent;
 font-size: 20pt;
-border-radius: 2mm;
-}
-code {
-font-size: 25pt;
-font-family: monospace;
-background-color: #ad283124;
-color: #ad2831;
-padding: 1.2mm;
-line-height: 1;
 border-radius: 2mm;
 }
 .caption {
-font-size: 20pt;
+font-size: 25pt;
 }
 .table caption {
-font-size: 20pt;
+font-size: 25pt;
 padding-bottom: 3mm;
 
 }
@@ -338,7 +318,6 @@ margin-right: 4mm;
 margin-left: 4mm;
 margin-top: 6mm;
 margin-bottom: 10mm;
-color: #000000
 }
 .poster_body ol {
 margin-right: 4mm;
@@ -363,13 +342,13 @@ font-size: 20pt;
 <div class="title_container">
 <!-- Left Logo  -->
 <div class="logo_left">
-<img src=https://raw.githubusercontent.com/Morgan-Russell/SIOP-2022-poster/main/MSU_logo_white.webp style="width: 80%">
+<img src= 'https://raw.githubusercontent.com/Morgan-Russell/SIOP-2022-poster/main/MSU_logo_white.webp' style="width: 80%">
 </div>
 <!-- Poster Title -->
 <div class= "poster_title">
 <h1 id="title">Development of an Intentional Bifactor Engagement Measure</h1>
-<h3 id="author">Morgan Russell<sup>1</sup>, Renata Garcia Prieto Palacios Roji, MA<sup>1</sup>, Casey Osorio-Duffoo, MA<sup>2</sup>, John Kulas, PhD<sup>1</sup></h3>
-<h5 id="affiliation"><sup>1</sup> Montclair State University; <sup>2</sup> Harver</h5>
+<h3 id="author">Morgan Russell<sup>1</sup>, Renata Garcia Prieto Palacios Roji, MA<sup>1</sup>, Casey Osorio-Duffoo, MA<sup>2</sup>, John Kulas, PhD<sup>1</sup></h3><br>
+<h5 id="affiliation"><sup>1</sup> Montclair State University<br> <sup>2</sup> Harver</h5>
 </div>
 <!-- Right Logo  -->
 <div class="logo_right">
@@ -387,199 +366,49 @@ font-size: 20pt;
 <ol style="list-style-type: decimal">
 <li>Easy to use reproducible poster design.</li>
 <li>Integration with R Markdown.</li>
-<li>Easy transition from <code>posterdown</code> to <code>pagedown</code> report or manuscript documents <span class="citation">(Xie et al. 2021)</span>.</li>
+<li>Easy transition from <code>posterdown</code> to <code>pagedown</code> report or manuscript documents <span class="citation">(Xie et al. 2020)</span>.</li>
 </ol>
 </div>
 </div>
 <div id="methods" class="section level1">
 <h1>Methods</h1>
-<p>This package uses the same workflow approach as the R Markdown you know and love. Basically it goes from RMarkdown &gt; Knitr &gt; Markdown &gt; Pandoc &gt; HTML/CSS &gt; PDF. You can even use the bibliography the same way <span class="citation">(Thorne 2022)</span>.</p>
+<p>This package uses the same workflow approach as the R Markdown you know and love. Basically it goes from RMarkdown &gt; Knitr &gt; Markdown &gt; Pandoc &gt; HTML/CSS &gt; PDF. You can even use the bibliography the same way <span class="citation">(Thorne 2019)</span>.</p>
 </div>
 <div id="results" class="section level1">
 <h1>Results</h1>
 <p>Usually you want to have a nice table displaying some important results that you have calculated. In <code>posterdown</code> this is as easy as using the <code>kable</code> table formatting you are probably use to as per typical R Markdown formatting.</p>
-<p>You can reference tables like so: Table <a href="#tab:mytable">1</a>. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat augue at velit tincidunt semper. Donec elementum porta posuere. Nullam interdum, odio at tincidunt feugiat, turpis nisi blandit eros, eu posuere risus felis non quam. Nam eget lorem odio. Duis et aliquet orci. Phasellus nec viverra est.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(iris[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">caption =</span> <span class="st">&#39;Table caption.&#39;</span>,<span class="at">align =</span> <span class="st">&#39;c&#39;</span>,<span class="st">&quot;html&quot;</span>)</span></code></pre></div>
-<table>
-<caption>
-<span id="tab:mytable">Table 1: </span>Table caption.
-</caption>
-<thead>
-<tr>
-<th style="text-align:center;">
-Sepal.Length
-</th>
-<th style="text-align:center;">
-Sepal.Width
-</th>
-<th style="text-align:center;">
-Petal.Length
-</th>
-<th style="text-align:center;">
-Petal.Width
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center;">
-5.1
-</td>
-<td style="text-align:center;">
-3.5
-</td>
-<td style="text-align:center;">
-1.4
-</td>
-<td style="text-align:center;">
-0.2
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-4.9
-</td>
-<td style="text-align:center;">
-3.0
-</td>
-<td style="text-align:center;">
-1.4
-</td>
-<td style="text-align:center;">
-0.2
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-4.7
-</td>
-<td style="text-align:center;">
-3.2
-</td>
-<td style="text-align:center;">
-1.3
-</td>
-<td style="text-align:center;">
-0.2
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-4.6
-</td>
-<td style="text-align:center;">
-3.1
-</td>
-<td style="text-align:center;">
-1.5
-</td>
-<td style="text-align:center;">
-0.2
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-5.0
-</td>
-<td style="text-align:center;">
-3.6
-</td>
-<td style="text-align:center;">
-1.4
-</td>
-<td style="text-align:center;">
-0.2
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-5.4
-</td>
-<td style="text-align:center;">
-3.9
-</td>
-<td style="text-align:center;">
-1.7
-</td>
-<td style="text-align:center;">
-0.4
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-4.6
-</td>
-<td style="text-align:center;">
-3.4
-</td>
-<td style="text-align:center;">
-1.4
-</td>
-<td style="text-align:center;">
-0.3
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-5.0
-</td>
-<td style="text-align:center;">
-3.4
-</td>
-<td style="text-align:center;">
-1.5
-</td>
-<td style="text-align:center;">
-0.2
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-4.4
-</td>
-<td style="text-align:center;">
-2.9
-</td>
-<td style="text-align:center;">
-1.4
-</td>
-<td style="text-align:center;">
-0.2
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-4.9
-</td>
-<td style="text-align:center;">
-3.1
-</td>
-<td style="text-align:center;">
-1.5
-</td>
-<td style="text-align:center;">
-0.1
-</td>
-</tr>
-</tbody>
-</table>
+<p>You can reference tables like so: Table <a href="#tab:mytable"><strong>??</strong></a>. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat augue at velit tincidunt semper. Donec elementum porta posuere. Nullam interdum, odio at tincidunt feugiat, turpis nisi blandit eros, eu posuere risus felis non quam. Nam eget lorem odio. Duis et aliquet orci. Phasellus nec viverra est.</p>
+<pre><code>## Warning: package &#39;lavaan&#39; was built under R version 4.0.5</code></pre>
+<pre><code>## This is lavaan 0.6-8
+## lavaan is FREE software! Please report any bugs.</code></pre>
+<pre><code>## 
+## Attaching package: &#39;sem&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:lavaan&#39;:
+## 
+##     cfa, sem</code></pre>
+<pre><code>## Registered S3 methods overwritten by &#39;huge&#39;:
+##   method    from   
+##   plot.sim  BDgraph
+##   print.sim BDgraph</code></pre>
+<pre><code>## Warning in lav_data_full(data = data, group = group, cluster = cluster, : lavaan WARNING: some cases are empty and will be ignored:
+##   130 132 208</code></pre>
+<p><img src="SIOP-2022-poster_files/figure-html/cfa-1.png" width="672" /></p>
 <p>Or with figures: Figure <a href="#fig:standard-plot">1</a>, or Figure <a href="#fig:morefigs">2</a>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:standard-plot"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:standard-plot"></span>
 <img src="SIOP-2022-poster_files/figure-html/standard-plot-1.png" alt="Great figure!" width="80%" />
 <p class="caption">
 Figure 1: Great figure!
 </p>
 </div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> iris</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> data<span class="sc">$</span>Sepal.Length, </span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">y =</span> data<span class="sc">$</span>Sepal.Width, </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> data<span class="sc">$</span>Species,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">19</span>, </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Sepal Length (cm)&quot;</span>,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Sepal Width (cm)&quot;</span>)</span></code></pre></div>
-<div class="figure"><span id="fig:morefigs"></span>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> iris</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> data<span class="sc">$</span>Sepal.Length, </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">y =</span> data<span class="sc">$</span>Sepal.Width, </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> data<span class="sc">$</span>Species,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">19</span>, </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Sepal Length (cm)&quot;</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Sepal Width (cm)&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:morefigs"></span>
 <img src="SIOP-2022-poster_files/figure-html/morefigs-1.png" alt="Amazing, right?!" width="80%" />
 <p class="caption">
 Figure 2: Amazing, right?!
@@ -588,7 +417,7 @@ Figure 2: Amazing, right?!
 </div>
 <div id="next-steps" class="section level1">
 <h1>Next Steps</h1>
-<p>Aliquam sed faucibus risus, quis efficitur erat. Vestibulum semper mauris quis tempus eleifend. Aliquam sagittis dictum ipsum, quis viverra ligula eleifend ut. Curabitur sagittis vitae arcu eget faucibus. In non elementum felis. Duis et aliquam nunc. Nunc pulvinar sapien nunc, vel pretium nisi efficitur in. Fusce fringilla maximus leo et maximus. Fusce at ligula laoreet, iaculis mi at, auctor odio. Praesent sed elementum justo. Aenean consectetur risus rhoncus tincidunt efficitur. Praesent dictum mauris at diam maximus maximus <span class="citation">(Thorne 2022)</span>.</p>
+<p>Aliquam sed faucibus risus, quis efficitur erat. Vestibulum semper mauris quis tempus eleifend. Aliquam sagittis dictum ipsum, quis viverra ligula eleifend ut. Curabitur sagittis vitae arcu eget faucibus. In non elementum felis. Duis et aliquam nunc. Nunc pulvinar sapien nunc, vel pretium nisi efficitur in. Fusce fringilla maximus leo et maximus. Fusce at ligula laoreet, iaculis mi at, auctor odio. Praesent sed elementum justo. Aenean consectetur risus rhoncus tincidunt efficitur. Praesent dictum mauris at diam maximus maximus <span class="citation">(Thorne 2019)</span>.</p>
 </div>
 <div id="conclusion" class="section level1">
 <h1>Conclusion</h1>
@@ -598,13 +427,13 @@ Figure 2: Amazing, right?!
 <h1>References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-R-rmarkdown" class="csl-entry">
-Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, and Richard Iannone. 2021. <em>Rmarkdown: Dynamic Documents for r</em>.
+Allaire, JJ, Yihui Xie, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, Hadley Wickham, Joe Cheng, Winston Chang, and Richard Iannone. 2021. <em>Rmarkdown: Dynamic Documents for r</em>. <a href="https://CRAN.R-project.org/package=rmarkdown">https://CRAN.R-project.org/package=rmarkdown</a>.
 </div>
 <div id="ref-R-posterdown" class="csl-entry">
-Thorne, Brent. 2022. <em>Posterdown: Generate PDF Conference Posters Using r Markdown</em>. <a href="https://github.com/brentthorne/posterdown">https://github.com/brentthorne/posterdown</a>.
+Thorne, Brent. 2019. <em>Posterdown: Generate PDF Conference Posters Using r Markdown</em>. <a href="https://github.com/brentthorne/posterdown">https://github.com/brentthorne/posterdown</a>.
 </div>
 <div id="ref-R-pagedown" class="csl-entry">
-Xie, Yihui, Romain Lesur, Brent Thorne, and Xianying Tan. 2021. <em>Pagedown: Paginate the HTML Output of r Markdown with CSS for Print</em>. <a href="https://github.com/rstudio/pagedown">https://github.com/rstudio/pagedown</a>.
+Xie, Yihui, Romain Lesur, Brent Thorne, and Xianying Tan. 2020. <em>Pagedown: Paginate the HTML Output of r Markdown with CSS for Print</em>. <a href="https://github.com/rstudio/pagedown">https://github.com/rstudio/pagedown</a>.
 </div>
 </div>
 </div>

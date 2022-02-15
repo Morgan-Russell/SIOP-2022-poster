@@ -1,57 +1,10 @@
----
-title: Development of an Intentional Bifactor Engagement Measure
-author:
-  - name: Morgan Russell
-    affil: 1
-  - name: Renata Garcia Prieto Palacios Roji, MA
-    affil: 1
-  - name: Casey Osorio-Duffoo, MA
-    affil: 2
-  - name: John Kulas, PhD
-    affil: 1
-affiliation:
-  - num: 1
-    address: Montclair State University
-  - num: 2
-    address: Harver
-column_numbers: 3
-primary_colour: "#640d14"
-secondary_colour: "#ad2831"
-accent_colour: "#38040e"
-#csl: "apa7.csl" # NEED TO FIX THIS
-logoright_name: https&#58;//raw.githubusercontent.com/Morgan-Russell/SIOP-2022-poster/main/hawk-logo-white.svg
-logoleft_name: https&#58;//raw.githubusercontent.com/Morgan-Russell/SIOP-2022-poster/main/MSU_logo_white.webp
-output: 
-  posterdown::posterdown_html:
-    self_contained: false
-bibliography: packages.bib
----
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-```
+#PASTED CURRENT VERSION OF 'MORGAN JOB TITLE HOURS WORKED'
+#KEEP UP TO DATE
+# Morgan factorizes the "What is the title of the job you were thinking about while responding to this survey?" column
+# As well as the "How many hours do you typically work per week in this job?" column
 
-# Introduction
-
-Welcome to `posterdown` ! This is my attempt to provide a semi-smooth workflow for those who wish to take their R Markdown skills to the conference world. Most features from R Markdown are available in this package such as Markdown section notation, figure captioning, and even citations like this one [@R-rmarkdown]. The rest of this example poster will show how you can insert typical conference poster features into your own document. 
-
-## Objectives
-
-1. Easy to use reproducible poster design. 
-2. Integration with R Markdown.
-3. Easy transition from `posterdown` to `pagedown` report or manuscript documents [@R-pagedown].
-
-# Methods
-
-This package uses the same workflow approach as the R Markdown you know and love. Basically it goes from RMarkdown > Knitr > Markdown > Pandoc > HTML/CSS > PDF. You can even use the bibliography the same way [@R-posterdown].
-
-# Results
-
-Usually you want to have a nice table displaying some important results that you have calculated. In `posterdown` this is as easy as using the `kable` table formatting you are probably use to as per typical R Markdown formatting.
-
-You can reference tables like so: Table \@ref(tab:mytable). Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat augue at velit tincidunt semper. Donec elementum porta posuere. Nullam interdum, odio at tincidunt feugiat, turpis nisi blandit eros, eu posuere risus felis non quam. Nam eget lorem odio. Duis et aliquet orci. Phasellus nec viverra est.
-
-```{r data, warning=FALSE, message=FALSE}
+# An object lesson in why you should NEVER HAVE FREE TEXT ENTRY IN YOUR SURVEY
 
 
 # Packages
@@ -120,9 +73,6 @@ together$`This job drains my energy.` <- 7 - together$`This job drains my energy
 together$`Thinking about work saps my energy.` <- 7 - together$`Thinking about work saps my energy.`
 together$`I often think about finding another job.` <- 7 - together$`I often think about finding another job.`
 
-```
-
-```{r cfa, width="100%"}
 
 library(lavaan)
 library(sem)
@@ -194,51 +144,40 @@ Fit.mod2 <- lavaan::cfa(modified2, data = CFAdata, missing = "ML", estimator = '
 # semPlot::semPaths(Fit.mod2, bifactor = c("Cognitive", "Affective", "Behavioral"), "std", layout = "tree3",
 #                  rotation = 2, curvePivot=TRUE, style="lisrel", nCharNodes = 0, pastel=FALSE)
 
-semPlot::semPaths(Fit.mod2, bifactor = c("Cognitive", "Affective", "Behavioral"), style="lisrel", "std", layout = "tree3", sizeLat=10, rotation = 2, sizeMan=4.5,edge.label.cex=0.75, edge.color="black", asize=2, sizeInt = 0, mar = c(.7,-3,.7,-3))
+semPlot::semPaths(Fit.mod2, bifactor = c("Cognitive", "Affective", "Behavioral"), style="lisrel", "std", layout = "tree3", sizeLat=10, rotation = 2, sizeMan=4.5,edge.label.cex=0.75, edge.color="black", asize=2)
 
-```
 
-Or with figures: Figure \@ref(fig:standard-plot), or Figure \@ref(fig:morefigs).
 
-```{r standard-plot, out.width='80%', fig.align='center', fig.cap='Great figure!', fig.height=5}
-plot(mtcars[1:2])
-```
+fit1.1 <- as.data.frame(fitMeasures(Fit1.1))
+fit1.1$`fitMeasures(Fit1.1)` <- round(fit1.1$`fitMeasures(Fit1.1)`, 2)
 
-```{r morefigs, out.width='80%', echo=TRUE, fig.cap='Amazing, right?!', fig.height=5}
-data <- iris
+fit1.2 <- as.data.frame(fitMeasures(Fit1.2))
+fit1.2$`fitMeasures(Fit1.2)` <- round(fit1.2$`fitMeasures(Fit1.2)`, 2)
 
-plot(x = data$Sepal.Length, 
-     y = data$Sepal.Width, 
-     col = data$Species,
-     pch = 19, 
-     xlab = "Sepal Length (cm)",
-     ylab = "Sepal Width (cm)")
+fit.mod2 <- as.data.frame(fitMeasures(Fit.mod2))
+fit.mod2$`fitMeasures(Fit.mod2)` <- round(fit.mod2$`fitMeasures(Fit.mod2)`, 2)
 
-```
+indices_att <- as.data.frame(t(fit1.1[c(3,4,23,29,9,10,19),]))        ## Chi-sq, df, RMSEA, SRMR, CFI, TLI, AIC
+indices_sub <- as.data.frame(t(fit1.2[c(3,4,23,29,9,10,19),]))
+indices_bi <- as.data.frame(t(fit.mod2[c(3,4,44,58,17,18,38),]))
 
-# Next Steps
+fits <- rbind(indices_att, indices_sub, indices_bi)
+names(fits) <- c("Chi Square", "df", "RMSEA", "SRMR", "CFI", "TLI", "AIC")
+model <- c("Attitudinal", "Substantive", "bifactor")
+fits2 <- cbind(model, fits)
 
-Aliquam sed faucibus risus, quis efficitur erat. Vestibulum semper mauris quis tempus eleifend. Aliquam sagittis dictum ipsum, quis viverra ligula eleifend ut. Curabitur sagittis vitae arcu eget faucibus. In non elementum felis. Duis et aliquam nunc. Nunc pulvinar sapien nunc, vel pretium nisi efficitur in. Fusce fringilla maximus leo et maximus. Fusce at ligula laoreet, iaculis mi at, auctor odio. Praesent sed elementum justo. Aenean consectetur risus rhoncus tincidunt efficitur. Praesent dictum mauris at diam maximus maximus [@R-posterdown].
-
-# Conclusion
-
-Try `posterdown` out! Hopefully you like it!
-
-```{r, include=FALSE}
-knitr::write_bib(c('knitr','rmarkdown','posterdown','pagedown'), 'packages.bib')
-```
-
-# References
+apa_table(fits2, caption = "Summary fit statistics (18 item final proposed scale definitions)")
 
 
 
 
 
 
+mod <- data.frame(read.csv('att.csv', row.names = NULL)[1:7, 2:5])
+mod2 <- mod[,-2]
+mod2$Notes <- c("Candidate for deletion due to construct duplication (both are Absorption/Cognition indicators)", "", "Candidate for retention due to substantive construct association (Dedication)", "", "", "", "")
 
+colnames(mod2) <- c('Element 1', 'Element 2', "Modification Index", "Notes") #Δχ2 isn't showing up properly in knit output. Fix.
 
-
-
-
-
-
+#mod <- apa_table(mod2, caption = "Attitudinal structure modification indices (36 item analysis)")
+#mod
