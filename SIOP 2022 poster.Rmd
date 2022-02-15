@@ -52,7 +52,7 @@ Usually you want to have a nice table displaying some important results that you
 You can reference tables like so: Table \@ref(tab:mytable). Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat augue at velit tincidunt semper. Donec elementum porta posuere. Nullam interdum, odio at tincidunt feugiat, turpis nisi blandit eros, eu posuere risus felis non quam. Nam eget lorem odio. Duis et aliquet orci. Phasellus nec viverra est.
 
 ```{r mytable, out.width='80%'}
-knitr::kable(iris[1:10, 1:4], caption = 'Table caption.',align = 'c',"html")
+semPlot::semPaths(Fit.mod2, bifactor = c("Cognitive", "Affective", "Behavioral"), style="lisrel", "std", layout = "tree3", sizeLat=10, rotation = 2, sizeMan=4.5,edge.label.cex=0.75, edge.color="black", asize=2, sizeInt = 0, mar = c(.7,-3,.7,-3))
 ```
 
 Or with figures: Figure \@ref(fig:standard-plot), or Figure \@ref(fig:morefigs).
