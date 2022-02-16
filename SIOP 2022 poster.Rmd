@@ -33,17 +33,11 @@ knitr::opts_chunk$set(echo = FALSE)
 
 # Introduction
 
-Welcome to `posterdown` ! This is my attempt to provide a semi-smooth workflow for those who wish to take their R Markdown skills to the conference world. Most features from R Markdown are available in this package such as Markdown section notation, figure captioning, and even citations like this one [@R-rmarkdown]. The rest of this example poster will show how you can insert typical conference poster features into your own document. 
-
-## Objectives
-
-1. Easy to use reproducible poster design. 
-2. Integration with R Markdown.
-3. Easy transition from `posterdown` to `pagedown` report or manuscript documents [@R-pagedown].
+In recent years, "engagement" has entered the scene as a useful predictor of employee outcomes (e.g., Hanaysha, 2016; Alarcon & Edwards, 2011; Rich et al., 2010). Despite burgeoning popularity, considerable disagreement exists among psychologists on the definition and factor structure of engagement. Perhaps the most popular model of engagement describes it as comprised of three dimensions: Vigor, or high levels of energy at work; Dedication, or feelings of involvement, pride, and meaning in one's work; and Absorption, or concentration and flow while working (Schaufeli et al., 2002).
 
 # Methods
 
-This package uses the same workflow approach as the R Markdown you know and love. Basically it goes from RMarkdown > Knitr > Markdown > Pandoc > HTML/CSS > PDF. You can even use the bibliography the same way [@R-posterdown].
+Using the `semplot` package,
 
 # Results
 
@@ -51,7 +45,7 @@ Usually you want to have a nice table displaying some important results that you
 
 You can reference tables like so: Table \@ref(tab:mytable). Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat augue at velit tincidunt semper. Donec elementum porta posuere. Nullam interdum, odio at tincidunt feugiat, turpis nisi blandit eros, eu posuere risus felis non quam. Nam eget lorem odio. Duis et aliquet orci. Phasellus nec viverra est.
 
-```{r data, warning=FALSE, message=FALSE}
+```{r data, warning=FALSE, message=FALSE, echo=FALSE}
 
 
 # Packages
@@ -122,7 +116,7 @@ together$`I often think about finding another job.` <- 7 - together$`I often thi
 
 ```
 
-```{r cfa, width="100%"}
+```{r cfa, width="100%", message=FALSE, warning=FALSE, echo=FALSE}
 
 library(lavaan)
 library(sem)
