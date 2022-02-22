@@ -31,21 +31,57 @@ bibliography: packages.bib
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+```{r warning=FALSE, message=FALSE, echo=FALSE}
+# Packages
+library(tidyverse)
+library(DT)
+library(labourR)
+library(apaTables)
+library(kableExtra)
+library(knitr)
+```
+
+
 # Introduction
 
 In recent years, employee engagement has earned its stripes as a useful predictor of employee outcomes (e.g., Hanaysha, 2016; Alarcon & Edwards, 2011; Rich et al., 2010). Despite engagement's burgeoning popularity and emergence into the cultural mainstream, considerable disagreement exists among psychologists on the definition and factor structure of engagement.
 
 The "substantive" model of engagement describes it as comprised of three dimensions: Vigor, or high levels of energy at work; Dedication, or feelings of involvement, pride, and meaning in one's work; and Absorption, or concentration and flow while working (Schaufeli et al., 2002). On the other hand, the now-resurgent tripartite model of attitudes (Rosenberg, 1960) divides attitudes into cognitive, affective, and behavioral components.
 
-Rather than reject one model in favor of the other, we sought to develop an engagement measure which simultaneously captures *both*. Using bifactor analysis,
+Rather than reject one model in favor of the other, we sought to develop an engagement measure which simultaneously captures *both*. 
 
 # Methods
 
 Starting with the substantive and attitudinal definitions of engagement, we generated a set of 50 candidate items. Each item was worded to reflect one dimension from the substantive and attitudinal models (e.g., "I try my best to perform well at work" is a vigor-behavioral item). Graduate students and faculty were presented with definitions of the substantive and attitudinal content domains and sorted each item according to which dimension from each model to which it best corresponded (i.e., each item was sorted *twice*). After dropping the 14 items that at least five of the seven raters did not sort into the intended substantive-attitudinal pair, the remaining 36 items were revised and underwent sorting again.
 
-330 working adults were gathered to participate via snowball sampling.
+- 50 items were generated to semantically reflect one dimension each from the substantive and attitudinal models (see Table 1).
+
+- Graduate students and faculty sorted each item twice to their corresponding dimension within the substantive and attitudinal models. The 36 items that were most consistently sorted were retained for the study.
+
+- 330 working adult participants were gathered via snowball sampling.
+
+- (include sample descriptives if enough room)
+
+- Our team used two parallel scale development methods: one focusing on corrected item-total correlations, the other focusing on CFA modification indicies.
+
+- Iteratively, the item with the lowest corrected item-total correlation was removed from the scale definition
+
+This process was iterated
 
 Using the `semplot` package,
+
+```{r items, warning=FALSE, message=FALSE, echo=FALSE}
+items <- read.csv("items.csv")
+
+knitr::kable(
+  items, format = "html",
+  caption = "Final 20-item scale definition",
+  align = "l",
+  escape = FALSE,
+  col.names = c("Substantive", "Attitudinal", "Corrected item-total correlation"))
+
+```
+
 
 # Results
 
@@ -56,11 +92,7 @@ You can reference tables like so: Table \@ref(tab:mytable). Lorem ipsum dolor si
 ```{r data, warning=FALSE, message=FALSE, echo=FALSE}
 
 
-# Packages
-library(tidyverse)
-library(DT)
-library(labourR)
-library(apaTables)
+
 
 
 temp <- read.csv("qualtrics_pilot_data.csv", header=FALSE, na.strings="")
@@ -200,31 +232,13 @@ semPlot::semPaths(Fit.mod2, bifactor = c("Cognitive", "Affective", "Behavioral")
 
 ```
 
-Or with figures: Figure \@ref(fig:standard-plot), or Figure \@ref(fig:morefigs).
 
-```{r standard-plot, out.width='80%', fig.align='center', fig.cap='Great figure!', fig.height=5}
-plot(mtcars[1:2])
-```
 
-```{r morefigs, out.width='80%', echo=TRUE, fig.cap='Amazing, right?!', fig.height=5}
-data <- iris
+# Discussion
 
-plot(x = data$Sepal.Length, 
-     y = data$Sepal.Width, 
-     col = data$Species,
-     pch = 19, 
-     xlab = "Sepal Length (cm)",
-     ylab = "Sepal Width (cm)")
 
-```
-
-# Next Steps
-
-Aliquam sed faucibus risus, quis efficitur erat. Vestibulum semper mauris quis tempus eleifend. Aliquam sagittis dictum ipsum, quis viverra ligula eleifend ut. Curabitur sagittis vitae arcu eget faucibus. In non elementum felis. Duis et aliquam nunc. Nunc pulvinar sapien nunc, vel pretium nisi efficitur in. Fusce fringilla maximus leo et maximus. Fusce at ligula laoreet, iaculis mi at, auctor odio. Praesent sed elementum justo. Aenean consectetur risus rhoncus tincidunt efficitur. Praesent dictum mauris at diam maximus maximus [@R-posterdown].
 
 # Conclusion
-
-Try `posterdown` out! Hopefully you like it!
 
 ```{r, include=FALSE}
 knitr::write_bib(c('knitr','rmarkdown','posterdown','pagedown'), 'packages.bib')
