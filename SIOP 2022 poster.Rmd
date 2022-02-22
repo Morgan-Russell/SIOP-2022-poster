@@ -33,9 +33,17 @@ knitr::opts_chunk$set(echo = FALSE)
 
 # Introduction
 
-In recent years, "engagement" has entered the scene as a useful predictor of employee outcomes (e.g., Hanaysha, 2016; Alarcon & Edwards, 2011; Rich et al., 2010). Despite burgeoning popularity, considerable disagreement exists among psychologists on the definition and factor structure of engagement. Perhaps the most popular model of engagement describes it as comprised of three dimensions: Vigor, or high levels of energy at work; Dedication, or feelings of involvement, pride, and meaning in one's work; and Absorption, or concentration and flow while working (Schaufeli et al., 2002).
+In recent years, employee engagement has earned its stripes as a useful predictor of employee outcomes (e.g., Hanaysha, 2016; Alarcon & Edwards, 2011; Rich et al., 2010). Despite engagement's burgeoning popularity and emergence into the cultural mainstream, considerable disagreement exists among psychologists on the definition and factor structure of engagement.
+
+The "substantive" model of engagement describes it as comprised of three dimensions: Vigor, or high levels of energy at work; Dedication, or feelings of involvement, pride, and meaning in one's work; and Absorption, or concentration and flow while working (Schaufeli et al., 2002). On the other hand, the now-resurgent tripartite model of attitudes (Rosenberg, 1960) divides attitudes into cognitive, affective, and behavioral components.
+
+Rather than reject one model in favor of the other, we sought to develop an engagement measure which simultaneously captures *both*. Using bifactor analysis,
 
 # Methods
+
+Starting with the substantive and attitudinal definitions of engagement, we generated a set of 50 candidate items. Each item was worded to reflect one dimension from the substantive and attitudinal models (e.g., "I try my best to perform well at work" is a vigor-behavioral item). Graduate students and faculty were presented with definitions of the substantive and attitudinal content domains and sorted each item according to which dimension from each model to which it best corresponded (i.e., each item was sorted *twice*). After dropping the 14 items that at least five of the seven raters did not sort into the intended substantive-attitudinal pair, the remaining 36 items were revised and underwent sorting again.
+
+330 working adults were gathered to participate via snowball sampling.
 
 Using the `semplot` package,
 
