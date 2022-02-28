@@ -1,5 +1,5 @@
 ---
-title: Development of an Intentional Bifactor Engagement Measure
+title: Development of an Intended Bifactor Engagement Measure
 author:
   - name: Morgan Russell
     affil: 1
@@ -52,21 +52,17 @@ Rather than reject one model in favor of the other, we sought to develop an enga
 
 # Methods
 
-Starting with the substantive and attitudinal definitions of engagement, we generated a set of 50 candidate items. Each item was worded to reflect one dimension from the substantive and attitudinal models (e.g., "I try my best to perform well at work" is a vigor-behavioral item). Graduate students and faculty were presented with definitions of the substantive and attitudinal content domains and sorted each item according to which dimension from each model to which it best corresponded (i.e., each item was sorted *twice*). After dropping the 14 items that at least five of the seven raters did not sort into the intended substantive-attitudinal pair, the remaining 36 items were revised and underwent sorting again.
+50 items were generated to semantically reflect one dimension each from the substantive and attitudinal models. For example, "I speak positively about this organization to others" indicates both the dedication and behavioral dimensions from the substantive and attitudinal models respectively. Graduate students and faculty sorted each item twice to their corresponding dimension within the substantive and attitudinal models. The 36 items that were most consistently sorted were retained for the study. 330 working adult participants were gathered via snowball sampling and responded to this set of items.
 
-- 50 items were generated to semantically reflect one dimension each from the substantive and attitudinal models (see Table 1).
+## Item Reduction
 
-- Graduate students and faculty sorted each item twice to their corresponding dimension within the substantive and attitudinal models. The 36 items that were most consistently sorted were retained for the study.
+Our team used two parallel scale development methods: one focusing on corrected item-total correlations, the other focusing on CFA modification indices. In the former approach, the item with the lowest corrected item-total correlation was removed from the scale definition. This process was iterated after each item deletion until only two items per each of the nine pairs of substantive and attitudinal dimensions. 
 
-- 330 working adult participants were gathered via snowball sampling.
+In the CFA modification index approach, 
 
-- (include sample descriptives if enough room)
+Items with high modification indices and
 
-- Our team used two parallel scale development methods: one focusing on corrected item-total correlations, the other focusing on CFA modification indicies.
-
-- Iteratively, the item with the lowest corrected item-total correlation was removed from the scale definition
-
-This process was iterated
+The two parallel item reduction approaches yielded two very similar, yet distinct, 18-item scale definitions. We merged these scales into a final 20-item scale definition based on wording preference and maximizing content domain coverage (see Table \@ref(tab:items)).
 
 Using the `semplot` package,
 
@@ -86,9 +82,8 @@ knitr::kable(
 
 # Results
 
-Usually you want to have a nice table displaying some important results that you have calculated. In `posterdown` this is as easy as using the `kable` table formatting you are probably use to as per typical R Markdown formatting.
 
-You can reference tables like so: Table \@ref(tab:mytable). Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat augue at velit tincidunt semper. Donec elementum porta posuere. Nullam interdum, odio at tincidunt feugiat, turpis nisi blandit eros, eu posuere risus felis non quam. Nam eget lorem odio. Duis et aliquet orci. Phasellus nec viverra est.
+You can reference tables like so: Table \@ref(tab:items).
 
 ```{r data, warning=FALSE, message=FALSE, echo=FALSE}
 
@@ -236,8 +231,11 @@ semPlot::semPaths(Fit.mod2, bifactor = c("Cognitive", "Affective", "Behavioral")
 
 
 # Discussion
+The present research makes at least three unique contributions. Firstly, it introduces a novel measure of engagement, developed in English and available for free.
 
+Our engagement survey enables scientists and practitioners to simultaneously probe two separate dimensional structures of engagement.
 
+Most importantly, we advance the use of bifactor analysis as
 
 # Conclusion
 
