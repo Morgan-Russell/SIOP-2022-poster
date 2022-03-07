@@ -44,11 +44,17 @@ library(knitr)
 
 # Introduction
 
-In recent years, employee engagement has earned its stripes as a useful predictor of employee outcomes (e.g., Hanaysha, 2016; Alarcon & Edwards, 2011; Rich et al., 2010). Despite engagement's burgeoning popularity and emergence into the cultural mainstream, considerable disagreement exists among psychologists on the definition and factor structure of engagement.
+In recent years, employee engagement has earned its stripes as a useful predictor of employee outcomes (e.g., Hanaysha, 2016; Alarcon & Edwards, 2011; Rich et al., 2010). Despite engagement's burgeoning popularity and emergence into the cultural mainstream, considerable disagreement exists among psychologists on the definition and factor structure of the construct.
 
-The "substantive" model of engagement describes it as comprised of three dimensions: Vigor, or high levels of energy at work; Dedication, or feelings of involvement, pride, and meaning in one's work; and Absorption, or concentration and flow while working (Schaufeli et al., 2002). On the other hand, the now-resurgent tripartite model of attitudes (Rosenberg, 1960) divides attitudes into cognitive, affective, and behavioral components.
+The "substantive" model of engagement describes it in terms of three dimensions: Vigor, or high levels of energy at work; Dedication, or feelings of involvement, pride, and meaning in one's work; and Absorption, or concentration and flow while working (Schaufeli et al., 2002). On the other hand, the now-resurgent tripartite model of attitudes (Rosenberg, 1960) divides attitudes into cognitive, affective, and behavioral components.
 
-Rather than reject one model in favor of the other, we sought to develop an engagement measure which simultaneously captures *both*. 
+A traditional scale development approach would generate items which correspond to one 
+
+We sought to develop an instrument which not only would assess both 
+
+Rather than reject one model in favor of the other, we sought to develop an engagement measure in which each item simultaneously captures *both*. 
+
+In so doing, we hope to effectively double the content domain coverage of our scale while minimizing 
 
 # Methods
 
@@ -56,13 +62,11 @@ Rather than reject one model in favor of the other, we sought to develop an enga
 
 ## Item Reduction
 
-Our team used two parallel scale development methods: one focusing on corrected item-total correlations, the other focusing on CFA modification indices. In the former approach, the item with the lowest corrected item-total correlation was removed from the scale definition. This process was iterated after each item deletion until only two items per each of the nine pairs of substantive and attitudinal dimensions. 
+Our team used two parallel scale development methods: one focusing on corrected item-total correlations, the other focusing on CFA modification indices. In the former approach, the item with the lowest corrected item-total correlation was removed from the scale definition. This process was iterated     after each item deletion until only two items per each of the nine pairs of substantive and attitudinal dimensions remained. 
 
-In the CFA modification index approach, 
+The CFA modification index approach focused on item retention rather than deletion. We ran two parallel CFAs, one on the substantive model and the other on the attituinal model. We prioritized the alternative model predicted model associations as items to retain.
 
-Items with high modification indices and
-
-The two parallel item reduction approaches yielded two very similar, yet distinct, 18-item scale definitions. We merged these scales into a final 20-item scale definition based on wording preference and maximizing content domain coverage (see Table \@ref(tab:items)).
+The two parallel item reduction approaches yielded two very similar, yet distinct, 18-item scale definitions. We merged these scales into a final 20-item scale definition based on wording preference and maximizing content domain coverage.
 
 Using the `semplot` package,
 
@@ -82,8 +86,8 @@ knitr::kable(
 
 # Results
 
+Table \@ref(tab:items) shows the final set of 20 items.
 
-You can reference tables like so: Table \@ref(tab:items).
 
 ```{r data, warning=FALSE, message=FALSE, echo=FALSE}
 
@@ -228,16 +232,127 @@ semPlot::semPaths(Fit.mod2, bifactor = c("Cognitive", "Affective", "Behavioral")
 
 ```
 
+```{r warning=FALSE, message=FALSE, echo=FALSE}
+library(ellipse)
+library(hexbin)
+my.plotcorr <- function (corr, outline = FALSE, col = "grey", upper.panel = c("ellipse", "number", "none"), lower.panel = c("ellipse", "number", "none"), diag = c("none", "ellipse", "number"), digits = 2, bty = "n", axes = FALSE, xlab = "", ylab = "", asp = 1, cex.lab = par("cex.lab"), cex = 0.75 * par("cex"), mar = 0.1 + c(2, 2, 4, 2), ...)
+{
+# this is a modified version of the plotcorr function from the ellipse package
+# this prints numbers and ellipses on the same plot but upper.panel and lower.panel changes what is displayed
+# diag now specifies what to put in the diagonal (numbers, ellipses, nothing)
+# digits specifies the number of digits after the . to round to
+# unlike the original, this function will always print x_i by x_i correlation rather than being able to drop it
+# modified by Esteban Buz
+  if (!require('ellipse', quietly = TRUE, character = TRUE)) {
+    stop("Need the ellipse library")
+  }
+  savepar <- par(pty = "s", mar = mar)
+  on.exit(par(savepar))
+  if (is.null(corr))
+    return(invisible())
+  if ((!is.matrix(corr)) || (round(min(corr, na.rm = TRUE), 6) < -1) || (round(max(corr, na.rm = TRUE), 6) > 1))
+    stop("Need a correlation matrix")
+  plot.new()
+  par(new = TRUE)
+  rowdim <- dim(corr)[1]
+  coldim <- dim(corr)[2]
+  rowlabs <- dimnames(corr)[[1]]
+  collabs <- dimnames(corr)[[2]]
+  if (is.null(rowlabs))
+    rowlabs <- 1:rowdim
+  if (is.null(collabs))
+    collabs <- 1:coldim
+  rowlabs <- as.character(rowlabs)
+  collabs <- as.character(collabs)
+  col <- rep(col, length = length(corr))
+  dim(col) <- dim(corr)
+  upper.panel <- match.arg(upper.panel)
+  lower.panel <- match.arg(lower.panel)
+  diag <- match.arg(diag)
+  cols <- 1:coldim
+  rows <- 1:rowdim
+  maxdim <- max(length(rows), length(cols))
+  plt <- par("plt")
+  xlabwidth <- max(strwidth(rowlabs[rows], units = "figure", cex = cex.lab))/(plt[2] - plt[1])
+  xlabwidth <- xlabwidth * maxdim/(1 - xlabwidth)
+  ylabwidth <- max(strwidth(collabs[cols], units = "figure", cex = cex.lab))/(plt[4] - plt[3])
+  ylabwidth <- ylabwidth * maxdim/(1 - ylabwidth)
+  plot(c(-xlabwidth - 0.5, maxdim + 0.5), c(0.5, maxdim + 1 + ylabwidth), type = "n", bty = bty, axes = axes, xlab = "", ylab = "", asp = asp, cex.lab = cex.lab, ...)
+  text(rep(0, length(rows)), length(rows):1, labels = rowlabs[rows], adj = 1, cex = cex.lab)
+  text(cols, rep(length(rows) + 1, length(cols)), labels = collabs[cols], srt = 90, adj = 0, cex = cex.lab)
+  mtext(xlab, 1, 0)
+  mtext(ylab, 2, 0)
+  mat <- diag(c(1, 1))
+  plotcorrInternal <- function() {
+    if (i == j){ #diag behavior
+      if (diag == 'none'){
+        return()
+      } else if (diag == 'number'){
+        text(j + 0.3, length(rows) + 1 - i, round(corr[i, j], digits=digits), adj = 1, cex = cex)
+      } else if (diag == 'ellipse') {
+        mat[1, 2] <- corr[i, j]
+        mat[2, 1] <- mat[1, 2]
+        ell <- ellipse(mat, t = 0.43)
+        ell[, 1] <- ell[, 1] + j
+        ell[, 2] <- ell[, 2] + length(rows) + 1 - i
+        polygon(ell, col = col[i, j])
+        if (outline)
+          lines(ell)
+      }
+    } else if (i >= j){ #lower half of plot
+      if (lower.panel == 'ellipse') { #check if ellipses should go here
+        mat[1, 2] <- corr[i, j]
+        mat[2, 1] <- mat[1, 2]
+        ell <- ellipse(mat, t = 0.43)
+        ell[, 1] <- ell[, 1] + j
+        ell[, 2] <- ell[, 2] + length(rows) + 1 - i
+        polygon(ell, col = col[i, j])
+        if (outline)
+          lines(ell)
+      } else if (lower.panel == 'number') { #check if ellipses should go here
+        text(j + 0.3, length(rows) + 1 - i, round(corr[i, j], digits=digits), adj = 1, cex = cex)
+      } else {
+        return()
+      }
+    } else { #upper half of plot
+      if (upper.panel == 'ellipse') { #check if ellipses should go here
+        mat[1, 2] <- corr[i, j]
+        mat[2, 1] <- mat[1, 2]
+        ell <- ellipse(mat, t = 0.43)
+        ell[, 1] <- ell[, 1] + j
+        ell[, 2] <- ell[, 2] + length(rows) + 1 - i
+        polygon(ell, col = col[i, j])
+        if (outline)
+          lines(ell)
+      } else if (upper.panel == 'number') { #check if ellipses should go here
+        text(j + 0.3, length(rows) + 1 - i, round(corr[i, j], digits=digits), adj = 1, cex = cex)
+      } else {
+        return()
+      }
+    }
+  }
+  for (i in 1:dim(corr)[1]) {
+    for (j in 1:dim(corr)[2]) {
+      plotcorrInternal()
+    }
+  }
+  invisible()
+}
+
+corr.mtcars <- cor(mtcars)
+colors = BTC(100)
+colors <- colorRampPalette(c("red", "white", "blue"))(100)
+#my.plotcorr(corr.mtcars, col=colors[((corr.mtcars + 1)/2) * 100], diag='ellipse', lower.panel="number", main='Predictor correlations')
+
+corr.cfadata <- cor(CFAdata, use = "complete.obs")
+
+#my.plotcorr(corr.cfadata, col=colors[((corr.cfadata + 1)/2) * 100], diag='ellipse', lower.panel="number", main='Predictor correlations')
+```
 
 
 # Discussion
-The present research makes at least three unique contributions. Firstly, it introduces a novel measure of engagement, developed in English and available for free.
 
-Our engagement survey enables scientists and practitioners to simultaneously probe two separate dimensional structures of engagement.
-
-Most importantly, we advance the use of bifactor analysis as
-
-# Conclusion
+The persent research introduces a novel measure of engagement, developed in English and available for free. By designing items to correspond to two separate factor structures, we effectively double our content domain coverage with the same number of items. Most novelly, we intentionally embrace complexity in scale development. We believe this approach has promising implications for developing constructs which reconcile, rather than reject, conflicting models of constructs. It it our hope that future researchers will weigh the benefits of broadening content domain coverage over the understandable desire for item parsimony. 
 
 ```{r, include=FALSE}
 knitr::write_bib(c('knitr','rmarkdown','posterdown','pagedown'), 'packages.bib')
@@ -245,6 +360,14 @@ knitr::write_bib(c('knitr','rmarkdown','posterdown','pagedown'), 'packages.bib')
 
 # References
 
+```{=tex}
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+```
+
+::: {#refs custom-style="Bibliography"}
+:::
 
 
 
