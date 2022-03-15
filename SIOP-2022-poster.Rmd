@@ -230,10 +230,6 @@ semPlot::semPaths(Fit.mod2, bifactor = c("Cognitive", "Affective", "Behavioral")
 
 ```
 
-```{r img-with-knitr, echo=FALSE, out.width='50%', eval=TRUE}
-
-
-```
 
 ```{r warning=FALSE, message=FALSE, echo=FALSE}
 library(ellipse)
