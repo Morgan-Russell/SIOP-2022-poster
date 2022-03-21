@@ -65,17 +65,23 @@ The CFA modification index approach focused on item retention rather than deleti
 
 The parallel item reduction approaches yielded two very similar, yet distinct, 18-item scale definitions. We merged these scales into a final 20-item scale definition based on wording preference and maximizing content domain coverage.
 
+<style>
+.striped tr:nth-child(even) { background: #ffcdd2; }
+</style>
+
 ```{r items, warning=FALSE, message=FALSE, echo=FALSE}
 items <- read.csv("items.csv")
 
 #get kable to shade every other row somehow
 
 knitr::kable(
-  items, format = "html",
+  items, 
   caption = "Final 20-item scale definition",
   align = "l",
   escape = FALSE,
-  col.names = c("Substantive", "Attitudinal", "Corrected item-total correlation")) %>% kable_styling(bootstrap_options=c("striped", "condensed"))
+  col.names = c("Substantive", "Attitudinal", "Corrected item-total correlation"),
+  table.attr = "class=\"striped\"",
+      format = "html") # %>% kable_styling(bootstrap_options=c("striped", "condensed"))
 ```
 
 
