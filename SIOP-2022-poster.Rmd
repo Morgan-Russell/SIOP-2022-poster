@@ -370,7 +370,7 @@ my.plotcorr <- function (corr, outline = FALSE, col = "grey", upper.panel = c("e
 
 #corr.mtcars <- cor(mtcars)
 colors = BTC(100)
-colors <- colorRampPalette(c("red", "white", "blue"))(100)
+colors <- colorRampPalette(c("blue", "white", "red"))(100)
 #my.plotcorr(corr.mtcars, col=colors[((corr.mtcars + 1)/2) * 100], diag='ellipse', lower.panel="number", main='Predictor correlations')
 
 #corr.cfadata <- cor(CFAdata, use = "complete.obs")
