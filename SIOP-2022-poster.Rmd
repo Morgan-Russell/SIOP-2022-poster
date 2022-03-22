@@ -23,7 +23,7 @@ csl: "apa7.csl"
 #poster_width: "48" #can also do 56 X 31.5
 #body_textsize: "150px"
 logoright_name: https&#58;//raw.githubusercontent.com/Morgan-Russell/SIOP-2022-poster/main/hawk-logo-white.svg
-logoleft_name: https&#58;//raw.githubusercontent.com/Morgan-Russell/SIOP-2022-poster/main/msu_text.png
+logoleft_name: https&#58;//raw.githubusercontent.com/Morgan-Russell/SIOP-2022-poster/main/msu_text.jpg
 output: 
   posterdown::posterdown_html:
     self_contained: false
