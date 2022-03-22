@@ -23,8 +23,6 @@ Google fonts api stuff
 
 <script src="SIOP-2022-poster_files/header-attrs-2.13/header-attrs.js"></script>
 
-<script src="SIOP-2022-poster_files/kePrint-0.0.1/kePrint.js"></script>
-<link href="SIOP-2022-poster_files/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 
@@ -334,7 +332,16 @@ font-size: 20pt;
 <p>Our team used two parallel scale development methods: one focusing on corrected item-total correlations, the other focusing on CFA modification indices. In the former approach, the item with the lowest corrected item-total correlation was removed from the scale definition. This process was iterated after each item deletion until only two items per each of the nine pairs of substantive and attitudinal dimensions remained.</p>
 <p>The CFA modification index approach focused on item retention rather than deletion. We ran two parallel CFAs, one on the substantive model and the other on the attitudinal model. We prioritized the alternative model predicted model associations as items to retain.</p>
 <p>The parallel item reduction approaches yielded two very similar, yet distinct, 18-item scale definitions. We merged these scales into a final 20-item scale definition based on wording preference and maximizing content domain coverage.</p>
-<table class="table table-striped table-condensed" style="margin-left: auto; margin-right: auto;">
+<style>
+.striped tr:nth-child(even) { background: #ffcdd2; }
+</style>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:bifactorplot"></span>
+<img src="bifactorplot.svg" alt="Bifactor structure" width="80%" />
+<p class="caption">
+Figure 1: Bifactor structure
+</p>
+</div>
+<table class="striped">
 <caption>
 <span id="tab:items">Table 1: </span>Final 20-item scale definition
 </caption>
@@ -574,18 +581,12 @@ I speak positively about this organization to others
 </tr>
 </tbody>
 </table>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:bifactorplot"></span>
-<img src="bifactorplot.svg" alt="Bifactor structure" width="80%" />
-<p class="caption">
-Figure 1: Bifactor structure
-</p>
-</div>
 </div>
 </div>
 <div id="results" class="section level1">
 <h1>Results</h1>
 <p>Table <a href="#tab:items">1</a> shows the final set of 20 items. All data analysis was conducting in R 4.1.0 using the packages <code>tidyverse</code> <span class="citation">(Wickham et al., 2019)</span>, <code>DT</code> <span class="citation">(Xie et al., 2021)</span>, <code>lavaan</code> <span class="citation">(Rosseel, 2012)</span>, <code>semPlot</code> <span class="citation">(Epskamp, 2019)</span>, <code>psych</code> <span class="citation">(Revelle, 2021)</span> and <code>posterdown</code> <span class="citation">(Thorne, 2022)</span>.</p>
-<p>As a whole, the engagement survey displayed high internal consistency (<span class="math inline">\(\alpha\)</span> = 0.93). Coefficient alphas for subscales ranged from 0.69 for absorption to 0.86 for affective. The bifactor model displayed strong fit, <span class="math inline">\(\chi^2\)</span>(111, N = 282) = 264.70, <em>p</em> &lt; .001, CFI = 1.07, AIC = 14113.31, RMSEA = 0.07.</p>
+<p>Coefficient alphas for subscales ranged from 0.69 for absorption to 0.86 for affective. The bifactor model with Full Information Maximum Likelihood estimation displayed strong fit, <span class="math inline">\(\chi^2\)</span>(111, N = 282) = 264.70, <em>p</em> &lt; .001, CFI = 0.92, AIC = 14113.31, RMSEA = 0.07.</p>
 <p>Figure <a href="#fig:bifactorplot">1</a> shows the factor loadings of each item on its respective substantive and attitudinal dimensions. Figure <a href="#fig:corrplot">2</a> shows subscale-level intercorrelations. Note that correlations between subscales inheriting from different models (e.g., cognitive and vigor) are artificially inflated due to one third of items being shared. Correlations <em>within</em> models are uninflated.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:corrplot"></span>
 <img src="corrplot.svg" alt="Correlations among subscales" width="80%" />
@@ -597,43 +598,8 @@ Figure 2: Correlations among subscales
 <div id="discussion" class="section level1">
 <h1>Discussion</h1>
 <p>The present research introduces a novel measure of engagement, developed in English and available for free. By designing items to correspond to two separate factor structures, we effectively double our content domain coverage with the same number of items. A convergent and discriminant validation study is currently underway, which is also intended to further reduce the scale definition to 18 items. Most novelly, we intentionally embrace complexity in scale development. We believe this approach has promising implications for developing measures which reconcile, rather than reject, disparate models of constructs. It it our hope that future researchers will weigh the benefits of broadening item complexity against the understandable desire for parsimony.</p>
-</div>
-<div id="references" class="section level1">
-<h1>References</h1>
-<div id="refs" class="references csl-bib-body hanging-indent" custom-style="Bibliography">
-<div id="ref-alarcon2011relationship" class="csl-entry">
-Alarcon, G. M., &amp; Edwards, J. M. (2011). The relationship of engagement, job satisfaction and turnover intentions. <em>Stress and Health</em>, <em>27</em>(3), e294–e298.
-</div>
-<div id="ref-R-semPlot" class="csl-entry">
-Epskamp, S. (2019). <em>semPlot: Path diagrams and visual analysis of various SEM packages’ output</em>. <a href="https://CRAN.R-project.org/package=semPlot">https://CRAN.R-project.org/package=semPlot</a>
-</div>
-<div id="ref-hanaysha2016testing" class="csl-entry">
-Hanaysha, J. (2016). Testing the effects of employee engagement, work environment, and organizational learning on organizational commitment. <em>Procedia-Social and Behavioral Sciences</em>, <em>229</em>, 289–297.
-</div>
-<div id="ref-R-psych" class="csl-entry">
-Revelle, W. (2021). <em>Psych: Procedures for psychological, psychometric, and personality research</em>. Northwestern University. <a href="https://CRAN.R-project.org/package=psych">https://CRAN.R-project.org/package=psych</a>
-</div>
-<div id="ref-rich2010job" class="csl-entry">
-Rich, B. L., Lepine, J. A., &amp; Crawford, E. R. (2010). Job engagement: Antecedents and effects on job performance. <em>Academy of Management Journal</em>, <em>53</em>(3), 617–635.
-</div>
-<div id="ref-rosenberg_cognitive_1960" class="csl-entry">
-Rosenberg, M. J. (1960). Cognitive, affective, and behavioral components of attitudes. In <em>Attitude organization and change</em>.
-</div>
-<div id="ref-R-lavaan" class="csl-entry">
-Rosseel, Y. (2012). <span class="nocase">lavaan</span>: An <span>R</span> package for structural equation modeling. <em>Journal of Statistical Software</em>, <em>48</em>(2), 1–36. <a href="https://www.jstatsoft.org/v48/i02/">https://www.jstatsoft.org/v48/i02/</a>
-</div>
-<div id="ref-schaufeli_measurement_2002" class="csl-entry">
-Schaufeli, W. B., Salanova, M., González-Romá, V., &amp; Bakker, A. B. (2002). The measurement of engagement and burnout: A two sample confirmatory factor analytic approach. <em>Journal of Happiness Studies</em>, <em>3</em>(1), 71–92.
-</div>
-<div id="ref-R-posterdown" class="csl-entry">
-Thorne, B. (2022). <em>Posterdown: Generate PDF conference posters using r markdown</em>. <a href="https://github.com/brentthorne/posterdown">https://github.com/brentthorne/posterdown</a>
-</div>
-<div id="ref-R-tidyverse" class="csl-entry">
-Wickham, H., Averick, M., Bryan, J., Chang, W., McGowan, L. D., François, R., Grolemund, G., Hayes, A., Henry, L., Hester, J., Kuhn, M., Pedersen, T. L., Miller, E., Bache, S. M., Müller, K., Ooms, J., Robinson, D., Seidel, D. P., Spinu, V., … Yutani, H. (2019). Welcome to the <span class="nocase">tidyverse</span>. <em>Journal of Open Source Software</em>, <em>4</em>(43), 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>
-</div>
-<div id="ref-R-DT" class="csl-entry">
-Xie, Y., Cheng, J., &amp; Tan, X. (2021). <em>DT: A wrapper of the JavaScript library ’DataTables’</em>. <a href="https://CRAN.R-project.org/package=DT">https://CRAN.R-project.org/package=DT</a>
-</div>
+<div id="refs" custom-style="Bibliography">
+
 </div>
 </div>
 </div>

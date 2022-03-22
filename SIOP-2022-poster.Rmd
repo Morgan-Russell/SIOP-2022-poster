@@ -3,11 +3,11 @@ title: Development of an Intended Bifactor Engagement Measure
 author:
   - name: Morgan Russell
     affil: 1
-  - name: Renata Garcia Prieto Palacios Roji, MA
+  - name: Renata Garcia Prieto Palacios Roji
     affil: 1
-  - name: Casey Osorio-Duffoo, MA
+  - name: Casey Osorio-Duffoo
     affil: 2
-  - name: John Kulas, PhD
+  - name: John Kulas
     affil: 1
 affiliation:
   - num: 1
@@ -24,10 +24,9 @@ csl: "apa7.csl"
 #body_textsize: "150px"
 logoright_name: https&#58;//raw.githubusercontent.com/Morgan-Russell/SIOP-2022-poster/main/hawk-logo-white.svg
 logoleft_name: https&#58;//raw.githubusercontent.com/Morgan-Russell/SIOP-2022-poster/main/MSU_logo_white.webp
-output: 
-  posterdown::posterdown_html:
-    self_contained: false
+output: pdf_document
 bibliography: "siop2022references.bib"
+suppress-bibliography: true
 ---
 
 ```{r setup, include=FALSE}
@@ -64,18 +63,11 @@ The CFA modification index approach focused on item retention rather than deleti
 
 The parallel item reduction approaches yielded two very similar, yet distinct, 18-item scale definitions. We merged these scales into a final 20-item scale definition based on wording preference and maximizing content domain coverage.
 
-```{r items, warning=FALSE, message=FALSE, echo=FALSE}
-items <- read.csv("items.csv")
+<style>
+.striped tr:nth-child(even) { background: #ffcdd2; }
+</style>
 
-#get kable to shade every other row somehow
 
-knitr::kable(
-  items, format = "html",
-  caption = "Final 20-item scale definition",
-  align = "l",
-  escape = FALSE,
-  col.names = c("Substantive", "Attitudinal", "Corrected item-total correlation")) %>% kable_styling(bootstrap_options=c("striped", "condensed"))
-```
 
 ```{r data, warning=FALSE, message=FALSE, echo=FALSE}
 
@@ -244,11 +236,26 @@ affective <- tibble(CFAdata$Item_5, CFAdata$Item_8, CFAdata$Item_17, CFAdata$Ite
 knitr::include_graphics("bifactorplot.svg", dpi = 1000)
 ```
 
+```{r items, warning=FALSE, message=FALSE, echo=FALSE}
+items <- read.csv("items.csv")
+
+#get kable to shade every other row somehow
+
+knitr::kable(
+  items, 
+  caption = "Final 20-item scale definition",
+  align = "l",
+  escape = FALSE,
+  col.names = c("Substantive", "Attitudinal", "Corrected item-total correlation"),
+  table.attr = "class=\"striped\"",
+      format = "html") # %>% kable_styling(bootstrap_options=c("striped", "condensed"))
+```
+
 # Results
 
 Table \@ref(tab:items) shows the final set of 20 items. All data analysis was conducting in R 4.1.0 using the packages `tidyverse` [@R-tidyverse], `DT` [@R-DT], `lavaan` [@R-lavaan], `semPlot` [@R-semPlot], `psych` [@R-psych] and `posterdown` [@R-posterdown].
 
-As a whole, the engagement survey displayed high internal consistency ($\alpha$ = `r psych::alpha(CFAdata)$total$raw_alpha %>% round(2)`). Coefficient alphas for subscales ranged from `r psych::alpha(absorption)$total$raw_alpha %>% round(2)` for absorption to `r psych::alpha(affective)$total$raw_alpha %>% round(2)` for affective. The bifactor model displayed strong fit, $\chi^2$(`r fitindices$FIT[4]`, N = `r nrow(CFAdata)`) = `r fitindices$FIT[3] %>% round(3) %>% formatC(digits = 2, format = 'f')`, *p* \< .001, CFI = `r fitindices$FIT[9] %>% round(3) %>% formatC(digits = 2, format = 'f')`, AIC = `r fitindices$FIT["aic"]  %>% round(3) %>% formatC(digits = 2, format = 'f')`, RMSEA = `r fitindices$FIT["rmsea"] %>% round(3) %>% formatC(digits = 2, format = 'f')`.
+Coefficient alphas for subscales ranged from `r psych::alpha(absorption)$total$raw_alpha %>% round(2)` for absorption to `r psych::alpha(affective)$total$raw_alpha %>% round(2)` for affective. The bifactor model with Full Information Maximum Likelihood estimation displayed strong fit, $\chi^2$(`r fitindices$FIT[4]`, N = `r nrow(CFAdata)`) = `r fitindices$FIT[3] %>% round(3) %>% formatC(digits = 2, format = 'f')`, *p* \< .001, CFI = `r fitindices$FIT["cfi"] %>% round(3) %>% formatC(digits = 2, format = 'f')`, AIC = `r fitindices$FIT["aic"]  %>% round(3) %>% formatC(digits = 2, format = 'f')`, RMSEA = `r fitindices$FIT["rmsea"] %>% round(3) %>% formatC(digits = 2, format = 'f')`.
 
 Figure \@ref(fig:bifactorplot) shows the factor loadings of each item on its respective substantive and attitudinal dimensions. Figure \@ref(fig:corrplot) shows subscale-level intercorrelations. Note that correlations between subscales inheriting from different models (e.g., cognitive and vigor) are artificially inflated due to one third of items being shared. Correlations *within* models are uninflated.
 
@@ -396,7 +403,6 @@ The present research introduces a novel measure of engagement, developed in Engl
 knitr::write_bib(c('knitr','rmarkdown','posterdown','pagedown'), 'packages.bib')
 ```
 
-# References
 ```{=tex}
 \begingroup
 \setlength{\parindent}{-0.5in}
