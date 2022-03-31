@@ -16,17 +16,19 @@ affiliation:
     address: Harver
 column_numbers: 3
 primary_colour: "#640d14"
-secondary_colour: "#ad2831"
+secondary_colour: "#ffffff"
 accent_colour: "#38040e"
 csl: "apa7.csl"
-#poster_height: "36"
-#poster_width: "48" #can also do 56 X 31.5
+#poster_height: "48"
+#poster_width: "36" #can also do 56 X 31.5 48 X 36
 #body_textsize: "150px"
 logoright_name: https&#58;//raw.githubusercontent.com/Morgan-Russell/SIOP-2022-poster/main/hawk-logo-white.svg
 logoleft_name: https&#58;//raw.githubusercontent.com/Morgan-Russell/SIOP-2022-poster/main/msu_text.jpg
 output: 
   posterdown::posterdown_html:
-    self_contained: false
+    self_contained: true
+#knit: pagedown::chrome_print:
+#  self_contained: true
 bibliography: "siop2022references.bib"
 suppress-bibliography: true
 ---
@@ -49,7 +51,7 @@ library(knitr)
 
 In recent years, employee engagement has earned its stripes as a useful predictor of employee outcomes [@hanaysha2016testing; @alarcon2011relationship; @rich2010job]. Despite engagement's burgeoning popularity and emergence into the cultural mainstream, considerable disagreement exists among psychologists on the definition and factor structure of the construct.
 
-The "substantive" model of engagement describes it in terms of three dimensions: Vigor, or high levels of energy at work; Dedication, or feelings of involvement, pride, and meaning in one's work; and Absorption, or concentration and flow while working [@schaufeli_measurement_2002]. On the other hand, the now-resurgent tripartite model of attitudes  divides attitudes into conitive, affective, and behavioral components [@rosenberg_cognitive_1960].
+The "substantive" model of engagement describes it in terms of three dimensions: Vigor, or high levels of energy at work; Dedication, or feelings of involvement, pride, and meaning in one's work; and Absorption, or concentration and flow while working [@schaufeli_measurement_2002]. On the other hand, the now-resurgent tripartite model of attitudes  divides attitudes into cognitive, affective, and behavioral components [@rosenberg_cognitive_1960].
 
 Breaking from the traditional scale development approach, in which each item only indicates one construct, we sought to develop an engagement measure in which each item simultaneously captures a dimension from *both* the substantive and attitudinal models. In so doing, we aim to construct a scale with very broad content domain coverage relative to its length.
 
@@ -213,10 +215,10 @@ fitindices <- summary(Fit.mod2, fit.measures=TRUE)
 #                  rotation = 2, curvePivot=TRUE, style="lisrel", nCharNodes = 0, pastel=FALSE)
 
 
-svg("bifactorplot.svg")
-semPlot::semPaths(Fit.mod2, bifactor = c("Cognitive", "Affective", "Behavioral"), style="lisrel", "std", layout = "tree3", sizeLat=10, rotation = 2, sizeMan=4.5,edge.label.cex=0.75, edge.color="black", asize=2, sizeInt = 0, mar = c(.7,-3,.7,-3))
+#svg("bifactorplot.svg")
+#semPlot::semPaths(Fit.mod2, bifactor = c("Cognitive", "Affective", "Behavioral"), style="lisrel", "std", layout = "tree3", sizeLat=10, rotation = 2, sizeMan=4.5,edge.label.cex=0.75, edge.color="black", asize=2, sizeInt = 0, mar = c(.7,-3,.7,-3))
 #dev.off()
-#knitr::include_graphics("bifactorplot.svg", dpi = 1000)
+knitr::include_graphics("bifactorplot.svg", dpi = 1000)
 ```
 
 ```{r}
@@ -257,7 +259,7 @@ knitr::kable(
 
 Table \@ref(tab:items) shows the final set of 20 items. All data analysis was conducting in R 4.1.0 using the packages `tidyverse` [@R-tidyverse], `DT` [@R-DT], `lavaan` [@R-lavaan], `semPlot` [@R-semPlot], `psych` [@R-psych] and `posterdown` [@R-posterdown].
 
-Coefficient alphas for subscales ranged from `r psych::alpha(absorption)$total$raw_alpha %>% round(2)` for absorption to `r psych::alpha(affective)$total$raw_alpha %>% round(2)` for affective. The bifactor model with Full Information Maximum Likelihood estimation displayed strong fit, $\chi^2$(`r fitindices$FIT[4]`, N = `r nrow(CFAdata)`) = `r fitindices$FIT[3] %>% round(3) %>% formatC(digits = 2, format = 'f')`, *p* \< .001, CFI = `r fitindices$FIT["cfi"] %>% round(3) %>% formatC(digits = 2, format = 'f')`, AIC = `r fitindices$FIT["aic"]  %>% round(3) %>% formatC(digits = 2, format = 'f')`, RMSEA = `r fitindices$FIT["rmsea"] %>% round(3) %>% formatC(digits = 2, format = 'f')`.
+Coefficient alphas for subscales ranged from `r psych::alpha(absorption)$total$raw_alpha %>% round(2)` for absorption to `r psych::alpha(affective)$total$raw_alpha %>% round(2)` for affective. The bifactor model with Full Information Maximum Likelihood estimation displayed fair fit, $\chi^2$(`r fitindices$FIT[4]`, N = `r nrow(CFAdata)`) = `r fitindices$FIT[3] %>% round(3) %>% formatC(digits = 2, format = 'f')`, *p* \< .001, CFI = `r fitindices$FIT["cfi"] %>% round(3) %>% formatC(digits = 2, format = 'f')`, AIC = `r fitindices$FIT["aic"]  %>% round(3) %>% formatC(digits = 2, format = 'f')`, RMSEA = `r fitindices$FIT["rmsea"] %>% round(3) %>% formatC(digits = 2, format = 'f')`.
 
 Figure \@ref(fig:bifactorplot) shows the factor loadings of each item on its respective substantive and attitudinal dimensions. Figure \@ref(fig:corrplot) shows subscale-level intercorrelations. Note that correlations between subscales inheriting from different models (e.g., cognitive and vigor) are artificially inflated due to one third of items being shared. Correlations *within* models are uninflated.
 
@@ -389,16 +391,16 @@ scales <- data.frame(id = 1:282) %>%
 corr.scales <- cor(scales, use = "complete.obs")
 ```
 
-```{r, corrplot, fig.cap="Correlations among subscales", out.width="80%", fig.align='center'}
-svg("corrplot.svg")
+```{r, corrplot, fig.cap="Correlations among subscales", out.width="115%", fig.align='center'}
+#svg("corrplot.svg")
 my.plotcorr(corr.scales, col=colors[((corr.scales + 1)/2) * 100], diag='ellipse', lower.panel="number")
-knitr::include_graphics("corrplot.svg", dpi = 3000)
-
+#knitr::include_graphics("corrplot.svg", dpi = 3000)
 ```
+
 
 # Discussion
 
-The present research introduces a novel measure of engagement, developed in English and available for free. By designing items to correspond to two separate factor structures, we effectively double our content domain coverage with the same number of items. A convergent and discriminant validation study is currently underway, which is also intended to further reduce the scale definition to 18 items. Most novelly, we intentionally embrace complexity in scale development. We believe this approach has promising implications for developing measures which reconcile, rather than reject, disparate models of constructs. It it our hope that future researchers will weigh the benefits of broadening item complexity against the understandable desire for parsimony.
+The present research introduces a novel measure of engagement, developed in English and available for free. By designing items to correspond to two separate factor structures, we effectively double our content domain coverage with the same number of items. A convergent and discriminant validation study is currently underway, which is also intended to further reduce the scale definition to 18 items. Most novelly, we intentionally embrace complexity in scale development. We believe this approach has promising implications for developing measures which reconcile, rather than reject, disparate models of constructs. It it our hope that future researchers will weigh the benefits of broadening item complexity against the understandable desire for item simplicity.
 
 
 ```{r, include=FALSE}
