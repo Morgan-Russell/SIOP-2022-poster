@@ -1,0 +1,417 @@
+---
+title: Development of an Intended Bifactor Engagement Measure
+author:
+  - name: Morgan Russell
+    affil: 1
+  - name: Renata Garcia Prieto Palacios Roji
+    affil: 1
+  - name: Casey Osorio-Duffoo
+    affil: 2
+  - name: John Kulas
+    affil: 1
+affiliation:
+  - num: 1
+    address: Montclair State University
+  - num: 2
+    address: Harver
+column_numbers: 3
+primary_colour: "#640d14"
+secondary_colour: "#ffffff"
+accent_colour: "#38040e"
+csl: "apa7.csl"
+#poster_height: "48"
+#poster_width: "36" #can also do 56 X 31.5 48 X 36
+#body_textsize: "150px"
+logoright_name: https&#58;//raw.githubusercontent.com/Morgan-Russell/SIOP-2022-poster/main/hawk-logo-white.svg
+logoleft_name: https&#58;//raw.githubusercontent.com/Morgan-Russell/SIOP-2022-poster/main/msu_text.jpg
+output: 
+  posterdown::posterdown_html:
+    self_contained: true
+#knit: pagedown::chrome_print:
+#  self_contained: true
+bibliography: "siop2022references.bib"
+suppress-bibliography: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
+```
+
+```{r warning=FALSE, message=FALSE, echo=FALSE}
+# Packages
+library(tidyverse)
+library(DT)
+library(labourR)
+library(apaTables)
+library(kableExtra)
+library(knitr)
+```
+
+# Introduction
+
+In recent years, employee engagement has earned its stripes as a useful predictor of employee outcomes [@hanaysha2016testing; @alarcon2011relationship; @rich2010job]. Despite engagement's burgeoning popularity and emergence into the cultural mainstream, considerable disagreement exists among psychologists on the definition and factor structure of the construct.
+
+The "substantive" model of engagement describes it in terms of three dimensions: Vigor, or high levels of energy at work; Dedication, or feelings of involvement, pride, and meaning in one's work; and Absorption, or concentration and flow while working [@schaufeli_measurement_2002]. On the other hand, the now-resurgent tripartite model of attitudes  divides attitudes into cognitive, affective, and behavioral components [@rosenberg_cognitive_1960].
+
+Breaking from the traditional scale development approach, in which each item only indicates one construct, we sought to develop an engagement measure in which each item simultaneously captures a dimension from *both* the substantive and attitudinal models. In so doing, we aim to construct a scale with very broad content domain coverage relative to its length.
+
+# Methods
+
+50 items were generated to semantically reflect one dimension each from the substantive and attitudinal models. For example, "I speak positively about this organization to others" indicates both the dedication and behavioral dimensions from the substantive and attitudinal models respectively. Graduate students and faculty sorted each item twice to their corresponding dimension within the substantive and attitudinal models. The 36 items that were most consistently sorted were retained for the study. 330 working adult participants were gathered via snowball sampling and responded to this set of items.
+
+## Item Reduction
+
+Our team used two parallel scale development methods: one focusing on corrected item-total correlations, the other focusing on CFA modification indices. In the former approach, the item with the lowest corrected item-total correlation was removed from the scale definition. This process was iterated after each item deletion until only two items per each of the nine pairs of substantive and attitudinal dimensions remained.
+
+The CFA modification index approach focused on item retention rather than deletion. We ran two parallel CFAs, one on the substantive model and the other on the attitudinal model. We prioritized the alternative model predicted model associations as items to retain.
+
+The parallel item reduction approaches yielded two very similar, yet distinct, 18-item scale definitions. We merged these scales into a final 20-item scale definition based on wording preference and maximizing content domain coverage.
+
+<style>
+.striped tr:nth-child(even) { background: #ffcdd2; }
+</style>
+
+
+
+```{r data, warning=FALSE, message=FALSE, echo=FALSE}
+
+
+
+
+
+temp <- read.csv("qualtrics_pilot_data.csv", header=FALSE, na.strings="")
+
+x <- temp[2,]
+data <- temp[-c(1:3),]
+colnames(data) <- x
+
+num <- nrow(data)
+
+## getting conditions into one large file below - 12/9/20
+
+data$Cond1 <- rowSums(is.na(data[18:53]))
+data$Cond2 <- rowSums(is.na(data[54:89]))
+data$Cond3 <- rowSums(is.na(data[90:125]))
+data$Cond4 <- rowSums(is.na(data[126:161]))
+
+data$Condition[data$Cond1 < 36] <- 1
+data$Condition[data$Cond2 < 36] <- 2
+data$Condition[data$Cond3 < 36] <- 3
+data$Condition[data$Cond4 < 36] <- 4
+
+cond1 <- data[ which(data$Condition==1), ]
+cond2 <- data[ which(data$Condition==2), ]
+cond3 <- data[ which(data$Condition==3), ]
+cond4 <- data[ which(data$Condition==4), ]
+
+cond1.red <- cond1[,c(6, 18:53, 162:165, 171)]  ## using Cond1 ordering
+cond2.red <- cond2[,c(6, 62:65, 70:73, 82:85, 58:61, 74:77, 86:89, 66:69, 78:81, 54:57, 162:165, 171)]
+cond3.red <- cond3[,c(6, 94:97, 106:109, 118:121, 98:101, 110:113, 122:125, 102:105, 114:117, 90:93, 162:165, 171)]
+cond4.red <- cond4[,c(6, 138:161, 130:137, 126:129, 162:165, 171)]        ## 171 versus 172 because testing script has extra "hours" variable
+
+names(cond1.red) = gsub(pattern = "C*.* - ", replacement = "", x = names(cond1.red))      ## Getting rid of condition markers so rbind will work
+names(cond2.red) = gsub(pattern = "C*.* - ", replacement = "", x = names(cond2.red))  
+names(cond3.red) = gsub(pattern = "C*.* - ", replacement = "", x = names(cond3.red))  
+names(cond4.red) = gsub(pattern = "C*.* - ", replacement = "", x = names(cond4.red))  
+
+together <- rbind(cond1.red, cond2.red, cond3.red, cond4.red)        ## we'll be using this object for analyses
+
+num_valid <- nrow(together)
+
+i <- c(1:37)                                          ## Changing item responses to numerics
+together[ , i] <- apply(together[ , i], 2,            # Specify own function within apply
+                        function(x) as.numeric(as.character(x)))
+
+
+##########################################################
+##########################################################
+##########################################################
+############# RECODES
+
+together$`Most days, I feel happiest when the workday is soon to be complete.` <- 7 - together$`Most days, I feel happiest when the workday is soon to be complete.`
+together$`This job drains my energy.` <- 7 - together$`This job drains my energy.`
+
+## BEHAVIORAL (NONE):
+
+## COGNITIVE: 
+
+together$`Thinking about work saps my energy.` <- 7 - together$`Thinking about work saps my energy.`
+together$`I often think about finding another job.` <- 7 - together$`I often think about finding another job.`
+
+```
+
+```{r cfa, width="100%", message=FALSE, warning=FALSE, echo=FALSE, results='hide'}
+
+library(lavaan)
+library(sem)
+library(semPlot)
+library(dplyr)
+
+
+CFAdata<-together[,2:37]
+
+CFAdata<-CFAdata%>%rename(
+  Item_1=`Iâ€™m able to concentrate on my work without distractions.`,
+  Item_2=`I have a hard time detaching mentally from my work.`,
+  Item_3=`Time passes quickly while Iâ€™m working.`,
+  Item_4=`I find it difficult to mentally disconnect from work.`,
+  Item_5=`I enjoy thinking about work even when Iâ€™m not at work.`,
+  Item_6=`Most days, I feel happiest when the workday is soon to be complete.`,
+  Item_7=`I am happiest when I am immersed in a project.`,
+  Item_8=`I love starting my workday.`,
+  Item_9=`I devote more time than is expected of me.`,
+  Item_10=`I have to be reminded to take breaks while Iâ€™m at work.`,
+  Item_11=`I never miss a work deadline.`,
+  Item_12=`I never allow distractions to interfere with my work.`,
+  Item_13=`I devote my full attention to my work tasks throughout the day.`,
+  Item_14=`Thinking about work saps my energy.`,
+  Item_15=`I would rather direct my focus toward a work task than a personal task.`,
+  Item_16=`Iâ€™m able to maintain good levels of energy throughout the workday.`,
+  Item_17=`I enjoy spending time completing my job tasks.`,
+  Item_18=`Most days I feel enthusiastic about starting my work day.`,
+  Item_19=`I feel motivated to go beyond what is asked of me.`,
+  Item_20=`This job drains my energy.`,
+  Item_21=`When work is slow I find ways to be productive.`,
+  Item_22=`I express enthusiasm for my job while at work.`,
+  Item_23=`I try my best to perform well at work.`,
+  Item_24=`If I notice my energy level is low, I take corrective steps to re-energize.`,
+  Item_25=`I plan my future with this company.`,
+  Item_26=`I believe this company cares about my career goals.`,
+  Item_27=`I often think about finding another job.`,
+  Item_28=`This organization challenges me to work at my full potential.`,
+  Item_29=`I am proud to be a member of this organization.`,
+  Item_30=`I feel supported by my supervisor when I fail at a task.`,
+  Item_31=`I feel proud of my accomplishments within this organization.`,
+  Item_32=`My job makes me feel like Iâ€™m part of something meaningful.`,
+  Item_33=`I make valued contributions to the organization.`,
+  Item_34=`I embrace challenging situations at work.`,
+  Item_35=`I speak positively about this organization to others.`,
+  Item_36=`This organization provides the resources necessary for me to successfully perform my job.`
+)
+
+modified2 <-'
+Absorption = ~Item_1 + Item_3  + Item_5  + Item_8  + Item_10 + Item_11
+Vigor      = ~Item_14 + Item_16 + Item_17 + Item_19 + Item_21 + Item_22
+Dedication = ~ Item_26 + Item_28 + Item_31 + Item_32 + Item_34 + Item_35
+Cognitive  = ~Item_1  + Item_3  + Item_14 + Item_16 + Item_26 + Item_28
+Affective  = ~Item_5 +  Item_8  + Item_17 + Item_19 + Item_31 + Item_32
+Behavioral = ~Item_10 + Item_11 + Item_21 + Item_22 + Item_34 + Item_35
+Absorption ~~ 0*Affective
+Absorption ~~ 0*Behavioral
+Absorption ~~ 0*Cognitive
+Vigor      ~~ 0*Affective
+Vigor      ~~ 0*Behavioral
+Vigor      ~~ 0*Cognitive
+Dedication ~~ 0*Affective
+Dedication ~~ 0*Behavioral
+Dedication ~~ 0*Cognitive
+'
+
+Fit.mod2 <- lavaan::cfa(modified2, data = CFAdata, missing = "ML", estimator = 'MLR')
+
+fitindices <- summary(Fit.mod2, fit.measures=TRUE)
+
+# semPlot::semPaths(Fit.mod2, bifactor = c("Cognitive", "Affective", "Behavioral"), "std", layout = "tree3",
+#                  rotation = 2, curvePivot=TRUE, style="lisrel", nCharNodes = 0, pastel=FALSE)
+
+
+#svg("bifactorplot.svg")
+#semPlot::semPaths(Fit.mod2, bifactor = c("Cognitive", "Affective", "Behavioral"), style="lisrel", "std", layout = "tree3", sizeLat=10, rotation = 2, sizeMan=4.5,edge.label.cex=0.75, edge.color="black", asize=2, sizeInt = 0, mar = c(.7,-3,.7,-3))
+#dev.off()
+knitr::include_graphics("bifactorplot.svg", dpi = 1000)
+```
+
+```{r}
+# scale dataframes for alphas
+vigor <- tibble(CFAdata$Item_13, CFAdata$Item_16, CFAdata$Item_17, CFAdata$Item_18, CFAdata$Item_22, CFAdata$Item_23)
+
+dedication <- tibble(CFAdata$Item_25, CFAdata$Item_26, CFAdata$Item_31, CFAdata$Item_32, CFAdata$Item_33, CFAdata$Item_35)
+
+absorption <- tibble(CFAdata$Item_1, CFAdata$Item_3, CFAdata$Item_5, CFAdata$Item_8, CFAdata$Item_9, CFAdata$Item_10)
+
+cognitive <- tibble(CFAdata$Item_1, CFAdata$Item_3, CFAdata$Item_13, CFAdata$Item_16, CFAdata$Item_25, CFAdata$Item_26)
+
+behavioral <- tibble(CFAdata$Item_9, CFAdata$Item_10, CFAdata$Item_22, CFAdata$Item_23, CFAdata$Item_33, CFAdata$Item_35)
+
+affective <- tibble(CFAdata$Item_5, CFAdata$Item_8, CFAdata$Item_17, CFAdata$Item_18, CFAdata$Item_31, CFAdata$Item_32)
+```
+
+```{r, bifactorplot, fig.cap="Bifactor structure", out.width="80%", fig.align='center'}
+knitr::include_graphics("bifactorplot.svg", dpi = 1000)
+```
+
+```{r items, warning=FALSE, message=FALSE, echo=FALSE}
+items <- read.csv("items.csv")
+
+#get kable to shade every other row somehow
+
+knitr::kable(
+  items, 
+  caption = "Final 20-item scale definition",
+  align = "l",
+  escape = FALSE,
+  col.names = c("Substantive", "Attitudinal", "Corrected item-total correlation"),
+  table.attr = "class=\"striped\"",
+      format = "html") # %>% kable_styling(bootstrap_options=c("striped", "condensed"))
+```
+
+# Results
+
+Table \@ref(tab:items) shows the final set of 20 items. All data analysis was conducting in R 4.1.0 using the packages `tidyverse` [@R-tidyverse], `DT` [@R-DT], `lavaan` [@R-lavaan], `semPlot` [@R-semPlot], `psych` [@R-psych] and `posterdown` [@R-posterdown].
+
+Coefficient alphas for subscales ranged from `r psych::alpha(absorption)$total$raw_alpha %>% round(2)` for absorption to `r psych::alpha(affective)$total$raw_alpha %>% round(2)` for affective. The bifactor model with Full Information Maximum Likelihood estimation displayed fair fit, $\chi^2$(`r fitindices$FIT[4]`, N = `r nrow(CFAdata)`) = `r fitindices$FIT[3] %>% round(3) %>% formatC(digits = 2, format = 'f')`, *p* \< .001, CFI = `r fitindices$FIT["cfi"] %>% round(3) %>% formatC(digits = 2, format = 'f')`, AIC = `r fitindices$FIT["aic"]  %>% round(3) %>% formatC(digits = 2, format = 'f')`, RMSEA = `r fitindices$FIT["rmsea"] %>% round(3) %>% formatC(digits = 2, format = 'f')`.
+
+Figure \@ref(fig:bifactorplot) shows the factor loadings of each item on its respective substantive and attitudinal dimensions. Figure \@ref(fig:corrplot) shows subscale-level intercorrelations. Note that correlations between subscales inheriting from different models (e.g., cognitive and vigor) are artificially inflated due to one third of items being shared. Correlations *within* models are uninflated.
+
+```{r warning=FALSE, message=FALSE, echo=FALSE}
+library(ellipse)
+library(hexbin)
+my.plotcorr <- function (corr, outline = FALSE, col = "grey", upper.panel = c("ellipse", "number", "none"), lower.panel = c("ellipse", "number", "none"), diag = c("none", "ellipse", "number"), digits = 2, bty = "n", axes = FALSE, xlab = "", ylab = "", asp = 1, cex.lab = par("cex.lab"), cex = 0.75 * par("cex"), mar = 0.1 + c(2, 2, 4, 2), ...)
+{
+# this is a modified version of the plotcorr function from the ellipse package
+# this prints numbers and ellipses on the same plot but upper.panel and lower.panel changes what is displayed
+# diag now specifies what to put in the diagonal (numbers, ellipses, nothing)
+# digits specifies the number of digits after the . to round to
+# unlike the original, this function will always print x_i by x_i correlation rather than being able to drop it
+# modified by Esteban Buz
+  if (!require('ellipse', quietly = TRUE, character = TRUE)) {
+    stop("Need the ellipse library")
+  }
+  savepar <- par(pty = "s", mar = mar)
+  on.exit(par(savepar))
+  if (is.null(corr))
+    return(invisible())
+  if ((!is.matrix(corr)) || (round(min(corr, na.rm = TRUE), 6) < -1) || (round(max(corr, na.rm = TRUE), 6) > 1))
+    stop("Need a correlation matrix")
+  plot.new()
+  par(new = TRUE)
+  rowdim <- dim(corr)[1]
+  coldim <- dim(corr)[2]
+  rowlabs <- dimnames(corr)[[1]]
+  collabs <- dimnames(corr)[[2]]
+  if (is.null(rowlabs))
+    rowlabs <- 1:rowdim
+  if (is.null(collabs))
+    collabs <- 1:coldim
+  rowlabs <- as.character(rowlabs)
+  collabs <- as.character(collabs)
+  col <- rep(col, length = length(corr))
+  dim(col) <- dim(corr)
+  upper.panel <- match.arg(upper.panel)
+  lower.panel <- match.arg(lower.panel)
+  diag <- match.arg(diag)
+  cols <- 1:coldim
+  rows <- 1:rowdim
+  maxdim <- max(length(rows), length(cols))
+  plt <- par("plt")
+  xlabwidth <- max(strwidth(rowlabs[rows], units = "figure", cex = cex.lab))/(plt[2] - plt[1])
+  xlabwidth <- xlabwidth * maxdim/(1 - xlabwidth)
+  ylabwidth <- max(strwidth(collabs[cols], units = "figure", cex = cex.lab))/(plt[4] - plt[3])
+  ylabwidth <- ylabwidth * maxdim/(1 - ylabwidth)
+  plot(c(-xlabwidth - 0.5, maxdim + 0.5), c(0.5, maxdim + 1 + ylabwidth), type = "n", bty = bty, axes = axes, xlab = "", ylab = "", asp = asp, cex.lab = cex.lab, ...)
+  text(rep(0, length(rows)), length(rows):1, labels = rowlabs[rows], adj = 1, cex = cex.lab)
+  text(cols, rep(length(rows) + 1, length(cols)), labels = collabs[cols], srt = 90, adj = 0, cex = cex.lab)
+  mtext(xlab, 1, 0)
+  mtext(ylab, 2, 0)
+  mat <- diag(c(1, 1))
+  plotcorrInternal <- function() {
+    if (i == j){ #diag behavior
+      if (diag == 'none'){
+        return()
+      } else if (diag == 'number'){
+        text(j + 0.3, length(rows) + 1 - i, round(corr[i, j], digits=digits), adj = 1, cex = cex)
+      } else if (diag == 'ellipse') {
+        mat[1, 2] <- corr[i, j]
+        mat[2, 1] <- mat[1, 2]
+        ell <- ellipse(mat, t = 0.43)
+        ell[, 1] <- ell[, 1] + j
+        ell[, 2] <- ell[, 2] + length(rows) + 1 - i
+        polygon(ell, col = col[i, j])
+        if (outline)
+          lines(ell)
+      }
+    } else if (i >= j){ #lower half of plot
+      if (lower.panel == 'ellipse') { #check if ellipses should go here
+        mat[1, 2] <- corr[i, j]
+        mat[2, 1] <- mat[1, 2]
+        ell <- ellipse(mat, t = 0.43)
+        ell[, 1] <- ell[, 1] + j
+        ell[, 2] <- ell[, 2] + length(rows) + 1 - i
+        polygon(ell, col = col[i, j])
+        if (outline)
+          lines(ell)
+      } else if (lower.panel == 'number') { #check if ellipses should go here
+        text(j + 0.3, length(rows) + 1 - i, round(corr[i, j], digits=digits), adj = 1, cex = cex)
+      } else {
+        return()
+      }
+    } else { #upper half of plot
+      if (upper.panel == 'ellipse') { #check if ellipses should go here
+        mat[1, 2] <- corr[i, j]
+        mat[2, 1] <- mat[1, 2]
+        ell <- ellipse(mat, t = 0.43)
+        ell[, 1] <- ell[, 1] + j
+        ell[, 2] <- ell[, 2] + length(rows) + 1 - i
+        polygon(ell, col = col[i, j])
+        if (outline)
+          lines(ell)
+      } else if (upper.panel == 'number') { #check if ellipses should go here
+        text(j + 0.3, length(rows) + 1 - i, round(corr[i, j], digits=digits), adj = 1, cex = cex)
+      } else {
+        return()
+      }
+    }
+  }
+  for (i in 1:dim(corr)[1]) {
+    for (j in 1:dim(corr)[2]) {
+      plotcorrInternal()
+    }
+  }
+  invisible()
+}
+
+#corr.mtcars <- cor(mtcars)
+colors = BTC(100)
+colors <- colorRampPalette(c("blue", "white", "red"))(100)
+#my.plotcorr(corr.mtcars, col=colors[((corr.mtcars + 1)/2) * 100], diag='ellipse', lower.panel="number", main='Predictor correlations')
+
+#corr.cfadata <- cor(CFAdata, use = "complete.obs")
+
+#my.plotcorr(corr.cfadata, col=colors[((corr.cfadata + 1)/2) * 100], diag='ellipse', lower.panel="number", main='Predictor correlations')
+
+scales <- data.frame(id = 1:282) %>% 
+  mutate(Vigor = rowMeans(data.frame(CFAdata$Item_13, CFAdata$Item_16, CFAdata$Item_17, CFAdata$Item_18, CFAdata$Item_22, CFAdata$Item_23), na.rm=T)) %>% 
+  mutate(Dedication = rowMeans(data.frame(CFAdata$Item_25, CFAdata$Item_26, CFAdata$Item_31, CFAdata$Item_32, CFAdata$Item_33, CFAdata$Item_35), na.rm=T)) %>% 
+  mutate(Absorption = rowMeans(data.frame(CFAdata$Item_1, CFAdata$Item_3, CFAdata$Item_5, CFAdata$Item_8, CFAdata$Item_9, CFAdata$Item_10), na.rm=T)) %>% 
+  mutate(Cognitive = rowMeans(data.frame(CFAdata$Item_1, CFAdata$Item_3, CFAdata$Item_13, CFAdata$Item_16, CFAdata$Item_25, CFAdata$Item_26), na.rm=T)) %>% 
+  mutate(Affective = rowMeans(data.frame(CFAdata$Item_5, CFAdata$Item_8, CFAdata$Item_17, CFAdata$Item_18, CFAdata$Item_31, CFAdata$Item_32), na.rm=T)) %>% 
+  mutate(Behavioral = rowMeans(data.frame(CFAdata$Item_9, CFAdata$Item_10, CFAdata$Item_22, CFAdata$Item_23, CFAdata$Item_33, CFAdata$Item_35), na.rm=T)) %>%
+  select(-id)
+
+corr.scales <- cor(scales, use = "complete.obs")
+```
+
+```{r, corrplot, fig.cap="Correlations among subscales", out.width="115%", fig.align='center'}
+#svg("corrplot.svg")
+my.plotcorr(corr.scales, col=colors[((corr.scales + 1)/2) * 100], diag='ellipse', lower.panel="number")
+#knitr::include_graphics("corrplot.svg", dpi = 3000)
+```
+
+
+# Discussion
+
+The present research introduces a novel measure of engagement, developed in English and available for free. By designing items to correspond to two separate factor structures, we effectively double our content domain coverage with the same number of items. A convergent and discriminant validation study is currently underway, which is also intended to further reduce the scale definition to 18 items. Most novelly, we intentionally embrace complexity in scale development. We believe this approach has promising implications for developing measures which reconcile, rather than reject, disparate models of constructs. It it our hope that future researchers will weigh the benefits of broadening item complexity against the understandable desire for item simplicity.
+
+
+```{r, include=FALSE}
+knitr::write_bib(c('knitr','rmarkdown','posterdown','pagedown'), 'packages.bib')
+```
+
+```{=tex}
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+```
+::: {#refs custom-style="Bibliography"}
+:::
+
